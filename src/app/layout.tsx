@@ -5,6 +5,7 @@ import Produtos from "./produtos/page";
 import "./globals.css";
 import Cadastro from "./cadastro/page";
 import HomePage from "./home/page";
+import Login from "./login/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <HomePage></HomePage>
         <Cadastro></Cadastro>
+        <Login></Login>
         <Produtos/>
       </body>
     </html>
