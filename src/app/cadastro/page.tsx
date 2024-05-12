@@ -52,7 +52,7 @@ const Cadastro: React.FC = () => {
                     <h2 className="text-2xl md:text-3xl lg:text-4xl gradient mb-10">
                         Experimente nossa solução completa de CRM e vendas.
                     </h2>
-                    <Image src={img} className="hidden md:block" alt="Mascote da Salesforce sgurando uma tocha." />
+                    <Image src={img} className="hidden md:block" alt="Mascote da Salesforce balançando uma bandeira azul."  unoptimized priority/>
                     <p className="text-base md:text-lg lg:text-xl text-description mt-10 text-[#808080] mb-7 items-end">
                         Dúvidas? Entre em contato e fale com um de nossos especialistas.
                     </p>
@@ -68,6 +68,7 @@ const Cadastro: React.FC = () => {
                         id="nome"
                         className="custom-input rounded-lg p-2.5 placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Nome"
+                        autoComplete="name"
                         required
                     />
                 </div>
@@ -79,6 +80,7 @@ const Cadastro: React.FC = () => {
                         id="email"
                         className="custom-input rounded-lg placeholder-blue-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Email *"
+                        autoComplete="email"
                         required
                     />
                 </div>
@@ -123,7 +125,7 @@ const Cadastro: React.FC = () => {
                         id="cep"
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="CEP"
-                          onChange={handleCEPChange}
+                        onChange={handleCEPChange}
                         required
                     />
                 </div>
@@ -151,7 +153,8 @@ const Cadastro: React.FC = () => {
                         value={address.cidade}
                         readOnly
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
-                        title="Cidade" 
+                        title="Cidade"
+                        required 
                     />
                 </div>
 
@@ -165,6 +168,7 @@ const Cadastro: React.FC = () => {
                         readOnly
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Bairro" 
+                        required
                     />
                 </div> 
                 
@@ -178,6 +182,7 @@ const Cadastro: React.FC = () => {
                         readOnly
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Rua" 
+                        required
                     />
                 </div>
 

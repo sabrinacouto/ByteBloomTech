@@ -15,8 +15,9 @@ const Produtos = () => {
               <Image
                 src={img1}
                 alt="Logo do produto Customer 360"
-                width={320}
-                height={240}
+                className='w-[20rem] h-auto'
+              
+
               />
               <h1 className="text-[#003652] text-3xl font-bold max-w-[637px] pb-2 pt-2">
                 Agora todo mundo é um Einstein.
@@ -34,8 +35,7 @@ const Produtos = () => {
               <Image
                 src={img2}
                 alt="Um homem segurando um tablet ao lado do mascote da Salesforce"
-                width={560}
-                height={420}
+                className='w-[33rem] h-auto'
               />
             </div>
           </div>
