@@ -76,7 +76,7 @@ const Acessibilidade = () =>{
                     <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl">
                     <div className="flex items-center">
                       <AiTwotoneSound className="text-black text-2xl mb-7 mr-3 "/>
-                      <h2 className="text-xl md:text-2xl lg:text-3xl gradient font-bold mt-5 mb-[3rem]"> Audidescrição</h2>
+                      <h2 className="text-xl md:text-2xl lg:text-3xl gradient font-bold mt-5 mb-[3rem]"> Audiodescrição</h2>
                       </div>
                       <p className=" text-base md:text-lg lg:text-lg">O menu Salesforce Acessibility disponibiliza a opção de ativar a audiodescrição para auxiliar pessoas com deficiência visual.</p>
                     </div>
