@@ -1,49 +1,52 @@
 'use client'
-import { MouseEvent } from 'react';
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import { ReactNode } from 'react';
 
-// Criando o contexto para o estado global
-interface SpeechContextType {
-  isReading: boolean;
-  toggleReading: () => void;
+interface LeitorDeTelaContextType {
+  ativo: boolean;
+  texto: string;
+  ativarLeitor: () => void;
+  desativarLeitor: () => void;
+  setarTexto: (texto: string) => void;
 }
 
-const SpeechContext = createContext<SpeechContextType>({
-  isReading: false,
-  toggleReading: () => {},
+const LeitorDeTelaContext = createContext<LeitorDeTelaContextType>({
+  ativo: false,
+  texto: '',
+  ativarLeitor: () => {},
+  desativarLeitor: () => {},
+  setarTexto: () => {},
 });
 
-// Hook para usar o contexto em componentes
-export const useSpeechContext = () => useContext(SpeechContext);
+export const useLeitorDeTela = () => {
+  return useContext(LeitorDeTelaContext);
+};
 
-// Provedor para encapsular os componentes com o estado global
-export const SpeechProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [isReading, setIsReading] = useState(false);
+interface LeitorDeTelaProviderProps {
+  children: ReactNode;
+}
 
-  const toggleReading = () => {
-    setIsReading((prevIsReading) => !prevIsReading);
+export const LeitorDeTelaProvider = ({ children }: LeitorDeTelaProviderProps) => {
+  const [ativo, setAtivo] = useState(false);
+  const [texto, setTexto] = useState('');
+
+  const ativarLeitor = () => {
+    setAtivo(true);
+  };
+
+  const desativarLeitor = () => {
+    setAtivo(false);
+  };
+
+  const setarTexto = (novoTexto: string) => {
+    setTexto(novoTexto);
   };
 
   return (
-    <SpeechContext.Provider value={{ isReading, toggleReading }}>
+    <LeitorDeTelaContext.Provider
+      value={{ ativo, texto, ativarLeitor, desativarLeitor, setarTexto }}
+    >
       {children}
-    </SpeechContext.Provider>
+    </LeitorDeTelaContext.Provider>
   );
-};
-
-// Função para ler o texto sob o cursor
-export const handleMouseMove = (event: MouseEvent) => {
-  if (window.speechSynthesis) {
-    const hoveredElement = document.elementFromPoint(event.clientX, event.clientY);
-
-    if (hoveredElement) {
-      const textContent = hoveredElement.textContent;
-
-      if (textContent && textContent.trim()) {
-        const textToSpeak = textContent.trim();
-        const utterance = new SpeechSynthesisUtterance(textToSpeak);
-        window.speechSynthesis.speak(utterance);
-      }
-    }
-  }
 };

@@ -45,6 +45,10 @@ html,
   background-color: var(--background-dark);
 }
 
+.dark-mode .box-footer {
+  background-color: var(--background-dark);
+}
+
 .dark-mode .card {
   color: var(--color-semidark);
 }

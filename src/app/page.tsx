@@ -36,6 +36,7 @@ export default function Home() {
             src={mascoteHome}
             alt="Elefante segurando um computador."
             className="max-w-[300px] sm:max-w-[400px] w-full"
+            priority
           />}
         </div>
       </div>

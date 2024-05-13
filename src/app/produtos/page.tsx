@@ -14,13 +14,13 @@ const Produtos = () => {
         <section id="produtos">
           <div className="products flex flex-col md:flex-row p-10 justify-center  items-center">
             <div className="elementos md:mb-0">
-              <Image
+            {showImages &&<Image
                 src={img1}
                 alt="Logo do produto Customer 360"
                 className='w-[20rem] h-auto'
               
 
-              />
+              />}
               <h1 className="text-[#003652] text-3xl font-bold max-w-[637px] pb-2 pt-2">
                 Agora todo mundo é um Einstein.
               </h1>
@@ -34,11 +34,11 @@ const Produtos = () => {
               </p>
             </div>
             <div className="image">
-              <Image
+            {showImages && <Image
                 src={img2}
                 alt="Um homem segurando um tablet ao lado do mascote da Salesforce"
                 className='w-[33rem] h-auto'
-              />
+              />}
             </div>
           </div>
   
@@ -56,11 +56,11 @@ const Produtos = () => {
 <div className="flex justify-center flex-col md:flex-row mt-[70px] mb-[70px]">
   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
     <div className="bg-white w-full h-auto md:max-w-md rounded-xl mx-auto overflow-hidden shadow-md p-6">
-      <Image
+    {showImages &&<Image
         src= {img3}
         alt="Homem mexendo no seu computador. Ao fundo, tem ilustrações de gráficos de dados"
         className="w-full h-auto rounded-t-xl"
-      />
+      />}
       <h3 className="text-[#0077B6] font-bold text-lg md:text-xl mt-5">
         Dados conectados levam a experiências perfeitas para o cliente.
       </h3>
@@ -71,11 +71,11 @@ const Produtos = () => {
       </p>
     </div>
     <div className="bg-white w-full md:max-w-md h-auto rounded-xl mx-auto overflow-hidden shadow-md p-6 ">
-      <Image
+    {showImages &&<Image
         src={img4}
         alt="Einsten, mascote da Salesforce, ao lado da ferramenta Einsten da Salesforce."
         className="w-full h-auto rounded-t-xl"
-      />
+      />}
       <h3 className="text-[#0077B6] font-bold text-lg md:text-xl mt-5">
         Capacite as equipes com IA confiável em uma plataforma segura e
         escalonável.
@@ -87,11 +87,11 @@ const Produtos = () => {
       </p>
     </div>
     <div className="bg-white w-full md:max-w-md h-auto rounded-xl mx-auto overflow-hidden shadow-md p-6 m">
-      <Image
+    {showImages &&<Image
         src={img5}
         alt="Várias pessoas dentro de um balão, ilustrando diferentes equipes."
         className="w-full h-auto rounded-t-xl"
-      />
+      />}
       <h3 className="text-[#0077B6] font-bold text-lg md:text-xl mt-5">
         As equipes podem fazer mais e mais rápido quando têm a ferramenta certa
         para cada trabalho.

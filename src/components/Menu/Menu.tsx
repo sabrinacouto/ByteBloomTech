@@ -13,7 +13,7 @@ import { useTextSize } from '@/contexts/textContext/TextSizeContext';
 import { useImageContext } from '@/contexts/imageContext/_app';
 import { useDaltonism } from '@/contexts/daltonismContext/DaltonismContext';
 import { useDarkMode } from '@/contexts/contrastContext/DarkModeContext';
-import { useSpeechContext, handleMouseMove } from '@/contexts/speechContext/_app';
+import { useLeitorDeTela } from '@/contexts/speechContext/_app';
 
 
 
@@ -25,7 +25,7 @@ const Menu: React.FC = () => {
   const { showImages, toggleImages } = useImageContext();
   const { toggleDaltonismType, daltonismText, resetDaltonism} = useDaltonism();
   const { darkMode, toggleDarkMode } = useDarkMode();// Use o hook useContext para acessar o contexto DarkModeContext
-  const { isReading, toggleReading } = useSpeechContext(); // Obtém o estado isReading do contexto SpeechProvider
+  const { ativarLeitor } = useLeitorDeTela();
 
   const resetMenu = () => {
     // Verificar se as funções estão ativadas e desativá-las
@@ -102,12 +102,12 @@ const Menu: React.FC = () => {
                        </p>
                     </div>
 
-                    <div className="border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-100 border w-[7rem] gap-3 h-[6rem] rounded-lg cursor-pointer flex justify-center items-center flex-col hover-effect" onClick={toggleReading}>
+                    <div className="border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-100 border w-[7rem] gap-3 h-[6rem] rounded-lg cursor-pointer flex justify-center items-center flex-col hover-effect" onClick={ativarLeitor}>
                         <p>
                         <AiTwotoneSound className='text-2xl text-gray-500 hover:text-black icons' />
                         </p>
                         <p className=' menu-item text-xs font-bold text-gray-500 text-center'>
-                        {isReading ? 'Desativar audio' : 'Ativar Audio'}
+                      Ativar audio
                     </p>
                     </div>
 

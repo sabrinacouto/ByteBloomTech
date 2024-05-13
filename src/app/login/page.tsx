@@ -4,7 +4,7 @@ const Login = () => {
   
   return (
     
-    <section id="login" className="background-image">
+    <section id="login" className="background-image my-[5rem]">
       <div className="flex justify-center items-center w-full mt-10 " >
         <div className="container max-w-[90%] sm:max-w-xl w-full sm:w-3/4 bg-white p-10 md:p-20 shadow-xl rounded-lg">
           <h2 className="text-3xl text-center font-bold gradient mb-6">Login</h2>
