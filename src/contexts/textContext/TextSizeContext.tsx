@@ -1,4 +1,3 @@
-'use client'
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type TextSizes = {
@@ -37,12 +36,7 @@ const TextSizeProvider: React.FC<TextSizeProviderProps> = ({ children }) => {
     li: 16,
   };
 
-  const savedTextSizes = JSON.parse(localStorage.getItem('textSizes') || '{}');
-  const [textSizes, setTextSizes] = useState<TextSizes>({
-    ...defaultTextSizes,
-    ...savedTextSizes,
-  });
-
+  const [textSizes, setTextSizes] = useState<TextSizes>(defaultTextSizes);
   const [clickCount, setClickCount] = useState(0);
  
   const increaseTextSize = () => {
@@ -74,7 +68,6 @@ const TextSizeProvider: React.FC<TextSizeProviderProps> = ({ children }) => {
   }, [clickCount]);
 
   useEffect(() => {
-    localStorage.setItem('textSizes', JSON.stringify(textSizes));
     const textElements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li'];
     textElements.forEach(tag => {
       const elements = document.querySelectorAll(`${tag}:not(.menu-item)`);
