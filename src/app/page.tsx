@@ -1,8 +1,11 @@
+'use client'
 import Image from "next/image";
 import Mascotes from "@/components/Mascotes/mascotes";
 import mascoteHome from "../../public/assets/mascotehome.png"
+import { useImageContext } from "@/contexts/imageContext/_app";
 
 export default function Home() {
+  const { showImages } = useImageContext();
   return (
     <section id="home">
     <div className="section flex justify-center">
@@ -29,11 +32,11 @@ export default function Home() {
           </div>
         </div>
         <div className="imageCustomer">
-          <Image
+        {showImages && <Image
             src={mascoteHome}
             alt="Elefante segurando um computador."
             className="max-w-[300px] sm:max-w-[400px] w-full"
-          />
+          />}
         </div>
       </div>
     </div>

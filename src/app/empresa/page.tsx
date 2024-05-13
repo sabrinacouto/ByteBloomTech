@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import image from "../../../public/assets/empresa.png";
 import imageHistoria from "../../../public/assets/historia.gif";
@@ -6,9 +7,11 @@ import sucesso from "../../../public/assets/sucesso.png";
 import inovacao from "../../../public/assets/inovacao.png";
 import igualdade from "../../../public/assets/igualdade.png";
 import sustentabilidade from "../../../public/assets/sustentabilidade.png";
+import { useImageContext } from "@/contexts/imageContext/_app";
 
 
 const Empresa = () => {
+  const { showImages } = useImageContext();
   return (
 
     <section id="empresa">
@@ -25,20 +28,20 @@ const Empresa = () => {
           </p>
         </div>
         <div className="image hidden md:block">
-          <Image
+        {showImages &&<Image
             src={imageHistoria}
             className="h-[20rem]"
             alt="Mascote da Salesforce cercado de borboletas"
-          />
+          />}
         </div>
         
       </div>
       <div> 
-        <Image
+      {showImages &&<Image
         src={image}
         alt="Dois mascotes fazendo uma excursão na floresta"
         className="w-full lg:h-[50vh]"
-      />
+      />}
       </div>
      
   <div className="flex flex-col md:flex-row justify-center pt-0 px-[20px] md:px-[50px] box-border max-w-full text-left">
@@ -54,7 +57,7 @@ const Empresa = () => {
         <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[600px]">Conquistamos a confiança de nossos clientes, funcionários e família estendida por meio de transparência, segurança, conformidade, privacidade e desempenho. E fornecemos a infraestrutura mais confiável do setor.</p>
       </div>
       <div className="image md:order-first mt-4 md:mt-0">
-        <Image src={confianca} alt="Grupo de mascotes da Salesforce trabalhando em conjunto contra uma colmeia de abelhas." className="w-[35rem] h-auto" />
+      {showImages &&<Image src={confianca} alt="Grupo de mascotes da Salesforce trabalhando em conjunto contra uma colmeia de abelhas." className="w-[35rem] h-auto" />}
       </div>
     </div>
 
@@ -66,7 +69,7 @@ const Empresa = () => {
         <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[600px]">Então, nós os defendemos para alcançar coisas extraordinárias. Inovamos e expandimos nossas ofertas de negócios para fornecer a todos os nossos acionistas novas vias para alcançar um sucesso cada vez maior.</p>
       </div>
       <div className="image md:order-first mt-4 md:mt-0">
-        <Image src={sucesso} alt="Mascotes vencendo uma corrida." className="w-[35rem] h-auto" />
+      {showImages &&<Image src={sucesso} alt="Mascotes vencendo uma corrida." className="w-[35rem] h-auto" />}
       </div>
     </div>
 
@@ -78,7 +81,7 @@ const Empresa = () => {
         <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[600px]">As opiniões de nossos clientes nos ajudam a desenvolver produtos que possam atender melhor às necessidades de negócios. Os lançamentos contínuos de tecnologia e novas iniciativas proporcionam uma vantagem competitiva a nossos clientes.</p>
       </div>
       <div className="image md:order-first mt-4 md:mt-0">
-        <Image src={inovacao} alt="Einsten numa sala de aula." className="w-[35rem] h-auto" />
+      {showImages &&<Image src={inovacao} alt="Einsten numa sala de aula." className="w-[35rem] h-auto" />}
       </div>
     </div>
 
@@ -90,7 +93,7 @@ const Empresa = () => {
         <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[600px]">Acreditamos que todos devem ser vistos, ouvidos, valorizados e capacitados para o sucesso. Ouvir perspectivas diversas impulsiona a inovação, aprofunda as conexões entre as pessoas e nos torna uma empresa melhor.</p>
       </div>
       <div className="image md:order-first mt-4 md:mt-0">
-        <Image src={igualdade} alt="Mascotes medindo suas alturas." className="w-[35rem] h-auto" />
+      {showImages &&<Image src={igualdade} alt="Mascotes medindo suas alturas." className="w-[35rem] h-auto" />}
       </div>
     </div>
 
@@ -101,7 +104,7 @@ const Empresa = () => {
         <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-[600px]">Temos o compromisso de trazer todo o poder do Salesforce para acelerar a jornada do mundo rumo à emissão líquida zero.</p>
       </div>
       <div className="image md:order-first mt-4 md:mt-0">
-        <Image src={sustentabilidade} alt="Mascostes rodeados de borboletas" className="w-[35rem] h-auto" />
+      {showImages &&<Image src={sustentabilidade} alt="Mascostes rodeados de borboletas" className="w-[35rem] h-auto" />}
       </div>
     </div>
     

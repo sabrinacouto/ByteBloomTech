@@ -10,6 +10,12 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+.background-image {
+  background-image: url("../../public/assets/bg.png");
+  background-size: cover;
+  /* Outros estilos conforme necessário */
+}
+
 /* Para navegadores modernos */
 html,
 :host {

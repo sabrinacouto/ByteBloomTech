@@ -1,12 +1,14 @@
+'use client'
 import Image from 'next/image';
-
 import img1 from "../../../public/assets/360.png"
 import img2 from "../../../public/assets/products.png"
 import img3 from "../../../public/assets/image 24.png"
 import img4 from "../../../public/assets/image 25.png"
 import img5 from "../../../public/assets/image 26.png"
+import { useImageContext } from "@/contexts/imageContext/_app";
 
 const Produtos = () => {
+  const { showImages } = useImageContext();
     return (
      
         <section id="produtos">

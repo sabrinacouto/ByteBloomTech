@@ -3,6 +3,7 @@ import React, { useState, FormEvent, ChangeEvent} from 'react';
 import Image from 'next/image';
 import img from "../../../public/assets/giphy.gif"
 import { fetchViaCep } from '@/services/ViaCep/viaCepAPIService';
+import { useImageContext } from "@/contexts/imageContext/_app";
 
 interface Address {
   cep: string;
@@ -13,6 +14,7 @@ interface Address {
 }
 
 const Cadastro: React.FC = () => {
+    const { showImages } = useImageContext();
     const [address, setAddress] = useState<Address>({
         cep: '',
         logradouro: '',
@@ -36,6 +38,8 @@ const Cadastro: React.FC = () => {
           senha: ''
       });
   
+      const [successMessage, setSuccessMessage] = useState<string>('');
+
       const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           event.preventDefault();
   
@@ -49,8 +53,21 @@ const Cadastro: React.FC = () => {
               });
   
               if (response.ok) {
-                  console.log('ContaCliente criada com sucesso!');
-                  // Redirecionar ou atualizar a página após o sucesso
+                  setSuccessMessage('Conta criada com sucesso!');
+                  setContaCliente({
+                      nome: '',
+                      sobrenome: '',
+                      cargo: '',
+                      nomeEmpresa: '',
+                      telefone: '',
+                      email: '',
+                      cep: '',
+                      rua: '',
+                      bairro: '',
+                      cidade: '',
+                      estado: '',
+                      senha: ''
+                  });
               } else {
                   console.error('Erro ao criar ContaCliente:', response.statusText);
               }
@@ -106,7 +123,7 @@ const Cadastro: React.FC = () => {
                     <h2 className="text-2xl md:text-3xl lg:text-4xl gradient mb-10">
                         Experimente nossa solução completa de CRM e vendas.
                     </h2>
-                    <Image src={img} className="hidden md:block" alt="Mascote da Salesforce balançando uma bandeira azul."  unoptimized priority/>
+                    {showImages &&<Image src={img} className="hidden md:block" alt="Mascote da Salesforce balançando uma bandeira azul."  unoptimized priority/>}
                     <p className="text-base md:text-lg lg:text-xl text-description mt-10 text-[#808080] mb-7 items-end">
                         Dúvidas? Entre em contato e fale com um de nossos especialistas.
                     </p>
@@ -298,6 +315,7 @@ const Cadastro: React.FC = () => {
                     />
                     <label htmlFor="userTerms" className="ml-4 text-lg text-description">Li e concordo com os <span className="text-[#2EA7BF]">Termos e Condições</span></label>
                 </div>
+                {successMessage && <div className="text-green-500">{successMessage}</div>}
                 <button
                     className="bg-gradient-to-r from-[#0CBFE3] to-[#024754] hover:bg-[#0CBFE3] text-white mt-8 hover:text-[#1E494F] text-xl h-[4rem] font-semibold rounded-md"
                     type="submit"

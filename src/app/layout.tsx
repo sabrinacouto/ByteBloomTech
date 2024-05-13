@@ -7,9 +7,9 @@ import Menu from '@/components/Menu/Menu';
 import { TbTextPlus } from 'react-icons/tb';
 import TextSizeProvider from '@/contexts/textContext/TextSizeContext';
 import { DaltonismProvider } from '@/contexts/daltonismContext/DaltonismContext';
-import { ImageProvider } from '@/contexts/imageContext/ImageContext';
+import { ImageProvider } from '@/contexts/imageContext/_app';
 import { DarkModeProvider } from '@/contexts/contrastContext/DarkModeContext';
-
+import { SpeechProvider } from '@/contexts/speechContext/_app';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header></Header>
+        <SpeechProvider>
         <DarkModeProvider>
         <ImageProvider>
         <DaltonismProvider>
@@ -37,6 +38,7 @@ export default function RootLayout({
         </DaltonismProvider>
         </ImageProvider>
         </DarkModeProvider>
+        </SpeechProvider>
        
   
      
