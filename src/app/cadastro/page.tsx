@@ -1,10 +1,8 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, FormEvent, ChangeEvent} from 'react';
 import Image from 'next/image';
 import img from "../../../public/assets/giphy.gif"
-import { fetchViaCep } from '@/services/ViaCep/viaCepAPI';
-
-
+import { fetchViaCep } from '@/services/ViaCep/viaCepAPIService';
 
 interface Address {
   cep: string;
@@ -16,32 +14,88 @@ interface Address {
 
 const Cadastro: React.FC = () => {
     const [address, setAddress] = useState<Address>({
-      cep: '',
-      logradouro: '',
-      bairro: '',
-      cidade: '',
-      estado: '',
-    });
+        cep: '',
+        logradouro: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+      });
+      
+      const [contaCliente, setContaCliente] = useState({
+          nome: '',
+          sobrenome: '',
+          cargo: '',
+          nomeEmpresa: '',
+          telefone: '',
+          email: '',
+          cep: '',
+          rua: '',
+          bairro: '',
+          cidade: '',
+          estado: '',
+          senha: ''
+      });
   
-    const handleCEPChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-      const cep = event.target.value.replace(/\D/g, '');
-      if (cep.length !== 8) {
-        return;
-      }
+      const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+          event.preventDefault();
   
-      try {
-        const data = await fetchViaCep(cep);;
-        setAddress({
-            cep: data.cep,
-            logradouro: data.logradouro,
-            bairro: data.bairro,
-            cidade: data.localidade,
-            estado: data.uf,
-        });
-      } catch (error) {
-        console.error('Erro ao buscar CEP:', error);
-      }
-    };
+          try {
+              const response = await fetch('http://localhost:8080/contaCliente', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(contaCliente)
+              });
+  
+              if (response.ok) {
+                  console.log('ContaCliente criada com sucesso!');
+                  // Redirecionar ou atualizar a página após o sucesso
+              } else {
+                  console.error('Erro ao criar ContaCliente:', response.statusText);
+              }
+          } catch (error) {
+              console.error('Erro ao enviar solicitação:', error);
+          }
+      };
+  
+      const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+          const { name, value } = event.target;
+          setContaCliente(prevState => ({
+              ...prevState,
+              [name]: value
+          }));
+      };
+
+    
+      const handleCEPChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const cep = event.target.value.replace(/\D/g, '');
+        if (cep.length !== 8) {
+          return;
+        }
+    
+        try {
+          const data = await fetchViaCep(cep);
+          setAddress({
+              cep: data.cep,
+              logradouro: data.logradouro,
+              bairro: data.bairro,
+              cidade: data.localidade,
+              estado: data.uf,
+          });
+          // Atualizar automaticamente os campos do formulário com os dados do CEP
+          setContaCliente(prevState => ({
+              ...prevState,
+              cep: data.cep,
+              rua: data.logradouro,
+              bairro: data.bairro,
+              cidade: data.localidade,
+              estado: data.uf,
+          }));
+        } catch (error) {
+          console.error('Erro ao buscar CEP:', error);
+        }
+      };
 
     return (
 
@@ -59,9 +113,9 @@ const Cadastro: React.FC = () => {
                 </div>
             </div>
             
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-9 lg:gap-15">
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-9 lg:gap-15" onSubmit={handleSubmit}>
                 <div className="flex flex-col">
-                    <label htmlFor="nome" className="-description mb-2">Nome</label>
+                    <label htmlFor="nome" className="text-description mb-2">Nome</label>
                     <input
                         type="text"
                         name="nome"
@@ -69,6 +123,22 @@ const Cadastro: React.FC = () => {
                         className="custom-input rounded-lg p-2.5 placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Nome"
                         autoComplete="name"
+                        value={contaCliente.nome} 
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="flex flex-col">
+                    <label htmlFor="sobrenome" className="text-description mb-2">Sobrenome</label>
+                    <input
+                        type="text"
+                        name="sobrenome"
+                        id="sobrenome"
+                        className="custom-input rounded-lg p-2.5 placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        title="Sobrenome"
+                        autoComplete="family-name"
+                        value={contaCliente.sobrenome} 
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -81,6 +151,8 @@ const Cadastro: React.FC = () => {
                         className="custom-input rounded-lg placeholder-blue-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Email *"
                         autoComplete="email"
+                        value={contaCliente.email} 
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -90,33 +162,42 @@ const Cadastro: React.FC = () => {
                         type="text"
                         name="cargo"
                         id="cargo"
-                        className="custom-input  rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        className="custom-input  rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
                         title="Cargo"
+                        value={contaCliente.cargo} 
+                        onChange={handleChange}
                         required
                     />
                 </div>
-                <div className="flex flex-col">
-                    <label htmlFor="empresa" className="text-description mb-2">Empresa</label>
-                    <input
-                        type="text"
-                        name="empresa"
-                        id="empresa"
-                        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
-                        title="Empresa"
-                        required
-                    />
-                </div>
-                <div className="flex flex-col">
-                    <label htmlFor="telefone" className="text-description mb-2">Telefone</label>
-                    <input
-                        type="text"
-                        id="telefone"
-                        aria-describedby="helper-text-explanation"
-                        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
-                        required
-                    />
-                </div>
+             
+    
+<div className="flex flex-col">
+    <label htmlFor="empresa" className="text-description mb-2">Empresa</label>
+    <input
+        type="text"
+        name="nomeEmpresa"
+        id="empresa"
+        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 "
+        title="Empresa"
+        value={contaCliente.nomeEmpresa} 
+        onChange={handleChange}
+        required
+    />
+</div>
 
+<div className="flex flex-col">
+    <label htmlFor="telefone" className="text-description mb-2">Telefone</label>
+    <input
+        type="tel"
+        id="telefone"
+        name="telefone"
+        aria-describedby="helper-text-explanation"
+        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+        value={contaCliente.telefone} 
+        onChange={handleChange}
+        required
+    />
+</div>
                 <div className="flex flex-col">
                     <label htmlFor="cep" className="text-description mb-2">CEP</label>
                     <input
@@ -125,7 +206,12 @@ const Cadastro: React.FC = () => {
                         id="cep"
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="CEP"
-                        onChange={handleCEPChange}
+                        onChange={(event) => {
+                            handleCEPChange(event);
+                            handleChange(event);
+                        }}
+                        value={contaCliente.cep}
+                        
                         required
                     />
                 </div>
@@ -136,8 +222,9 @@ const Cadastro: React.FC = () => {
                         type="text"
                         name="estado"
                         id="estado"
-                        value={address.estado}
-                        readOnly
+                        value={contaCliente.estado}
+                        onChange={handleChange}
+                      
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Estado"
                         required
@@ -150,8 +237,9 @@ const Cadastro: React.FC = () => {
                         type="text"
                         name="cidade"
                         id="cidade"
-                        value={address.cidade}
-                        readOnly
+                        value={contaCliente.cidade} 
+                        onChange={handleChange}
+                  
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Cidade"
                         required 
@@ -164,8 +252,8 @@ const Cadastro: React.FC = () => {
                         type="text"
                         name="bairro"
                         id="bairro"
-                        value={address.bairro}
-                        readOnly
+                        value={contaCliente.bairro}
+                        onChange={handleChange}
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Bairro" 
                         required
@@ -178,8 +266,8 @@ const Cadastro: React.FC = () => {
                         type="text"
                         name="rua"
                         id="rua"
-                        value={address.logradouro}
-                        readOnly
+                        value={contaCliente.rua}
+                        onChange={handleChange}
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Rua" 
                         required
@@ -187,11 +275,13 @@ const Cadastro: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col">
-                    <label htmlFor="password" className="text-description mb-2">Senha</label>
+                    <label htmlFor="senha" className="text-description mb-2">Senha</label>
                     <input
                         type="password"
-                        name="password"
-                        id="password"
+                        name="senha"
+                        id="senha"
+                        value = {contaCliente.senha}
+                        onChange={handleChange}
                         className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         title="Senha"
                         required
@@ -209,7 +299,7 @@ const Cadastro: React.FC = () => {
                     <label htmlFor="userTerms" className="ml-4 text-lg text-description">Li e concordo com os <span className="text-[#2EA7BF]">Termos e Condições</span></label>
                 </div>
                 <button
-                    className="bg-gradient-to-r from-[#0CBFE3] to-[#024754] hover:from-[#0CBFE3] hover:to-white text-white mt-8 hover:text-[#1E494F] text-xl h-[4rem] font-semibold rounded-md"
+                    className="bg-gradient-to-r from-[#0CBFE3] to-[#024754] hover:bg-[#0CBFE3] text-white mt-8 hover:text-[#1E494F] text-xl h-[4rem] font-semibold rounded-md"
                     type="submit"
                 >
                     Cadastre-se
