@@ -31,23 +31,6 @@ const Acessibilidade = () =>{
     </div>
       </div>
 
-      <div className="flex justify-center items-center text-center mt-10">
-        <h1 className="gradient text-2xl sm:text-3xl md:text-4xl text-center w-[50rem] py-5">
-        Veja como funciona nosso menu de acessiblidade!
-        </h1>
-      </div>
-
-  <div className="flex flex-col md:flex-row justify-center items-center mt-10 px-4 sm:px-8 md:px-16">
-  <div className="flex flex-col md:flex-row items-center bg-white rounded-xl w-full md:max-w-[50rem] h-auto md:h-[20rem]  gap-5 md:gap-10 pl-3 sm:pl-0">
-    <div className="ml-10">
-    {showImages &&<Image src={iconeAcessibilidade} className= "h-[14rem] w-auto"alt="Icone de Acessibilidade da Salesforce" />}
-    </div>
-    <p className="w-full md:w-[25rem] text-xl text-[#003652] mt-5 md:mt-0">
-      No canto superior direito da tela, você verá o ícone do nosso menu acessível. Basta dar um clique para que você visualize todas as ferramentas! Fácil, não é?
-    </p>
-  </div>
-</div>
-
       <div className="flex justify-center items-center text-center">
         <h1 className="gradient text-2xl sm:text-3xl md:text-4xl text-center w-[50rem] py-10">
         Conheça as ferramentas do menu acessível da Salesforce
@@ -55,7 +38,7 @@ const Acessibilidade = () =>{
       </div>
 
       <div className="grids grids-cols-1 sm:grid-cols-2 md:grid-cols-3 flex flex-wrap justify-center items-center gap-8">
-                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl">
+                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl shadow-xl">
                     <div className="flex items-center">
                       <MdUpgrade className=" text-blue-950 text-2xl mb-7 mr-2 "/>
                       <h2 className="text-xl md:text-2xl lg:text-3xl gradient font-bold mt-5 mb-[3rem]">Aumento de fonte</h2>
@@ -65,7 +48,7 @@ const Acessibilidade = () =>{
                       </p>
                     </div>
 
-                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl">
+                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl shadow-xl">
                     <div className="flex items-center">
                       <FaHands className=" text-blue-950 *:text-2xl mb-7 mr-3 "/>
                       <h2 className="text-xl md:text-2xl lg:text-3xl gradient font-bold mt-5 mb-[3rem]"> Libras</h2>
@@ -73,7 +56,7 @@ const Acessibilidade = () =>{
                       <p className=" text-base md:text-lg lg:text-lg">A ferramenta de Libras vai habilitar o <span className ="text-[#2EA7BF] font-bold"> VLibras </span> uma aplicação de língua de sinais destinada às pessoas com deficiência auditiva.</p>
                     </div>
           
-                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl">
+                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl shadow-xl">
                     <div className="flex items-center">
                       <AiTwotoneSound className="text-black text-2xl mb-7 mr-3 "/>
                       <h2 className="text-xl md:text-2xl lg:text-3xl gradient font-bold mt-5 mb-[3rem]"> Audiodescrição</h2>
@@ -81,7 +64,7 @@ const Acessibilidade = () =>{
                       <p className=" text-base md:text-lg lg:text-lg">O menu Salesforce Acessibility disponibiliza a opção de ativar a audiodescrição para auxiliar pessoas com deficiência visual.</p>
                     </div>
 
-                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl">
+                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl shadow-xl">
                       <div className="flex items-center">
                       <FaEye className="text-blue-950 text-2xl mb-7 mr-3 "/>
                       <h2 className="text-xl md:text-2xl lg:text-3xl gradient font-bold mt-5 mb-[3rem]"> Daltonismo</h2>
@@ -89,7 +72,7 @@ const Acessibilidade = () =>{
                       <p className="text-base md:text-lg lg:text-lg"> A cada clique, a tela mudará de cor de acordo com os tipos de daltonismo: protanopia, deuteranopia, acromatia e tritanopia.</p>
                     </div>
 
-                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl">
+                    <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl shadow-xl">
                     <div className="flex items-center">
                       <LuImageOff className=" text-blue-950 text-xl mb-7 mr-2 "/>
                       <h2 className="text-xl md:text-2xl lg:text-3xl gradient font-bold mt-5 mb-[3rem]">Desativar Imagens</h2>
@@ -99,7 +82,7 @@ const Acessibilidade = () =>{
                   <p className="text-base md:text-lg lg:text-lg">Ao clicar no botão de desativar imagens, você pode remover as imagens de todo o site!</p>
                 </div>
 
-                <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl">
+                <div className="card bg-white w-[20rem] h-[20rem] p-3 rounded-xl shadow-xl">
                 <div className="flex items-center">
                       <MdOutlineInvertColors className=" text-blue-950 text-xl mb-7 mr-2 "/>
                       <h2 className="text-xl md:text-2xl lg:text-3xl gradient font-bold mt-5 mb-[3rem]">Alterar constraste</h2>
