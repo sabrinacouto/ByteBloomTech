@@ -8,10 +8,12 @@ import { useLeitorDeTela } from "@/contexts/speechContext/_app";
 import LeitorDeTela from "@/components/Leitor/leitor";
 
 export default function Home() {
+  //Função para exibir e desativar imagens
   const { showImages } = useImageContext();
+  //Função para ler o texto da página
   const { ativo, setarTexto } = useLeitorDeTela();
 
-  const textoParaLeitura = `Introducing Salesforce Accessibility. Saiba mais. Proporcione uma experiência inclusiva e acessível a todos os usuários! Nosso site apresenta um inovador Menu de Acessibilidade, permitindo que você ajuste o tamanho da fonte, escolha o idioma da página, ative leitores de tela, utilize opções de teclado e desfrute de recursos em linguagem de sinais. Valorizamos a diversidade e buscamos tornar a sua navegação mais fácil, independente das suas necessidades.
+  const textoParaLeitura = `Introducing Salesforce Accessibility. Saiba mais. Proporcione uma experiência inclusiva e acessível a todos os usuários! Nosso site apresenta um inovador Menu de Acessibilidade, permitindo que você ajuste o tamanho da fonte, ative leitores de tela, utilize opções de teclado e desfrute de recursos em linguagem de sinais. Valorizamos a diversidade e buscamos tornar a sua navegação mais fácil, independente das suas necessidades.
   `;
 
   // Definir o texto quando o componente for montado, se o leitor de tela estiver ativo
@@ -36,7 +38,7 @@ export default function Home() {
           </div>
           <div>
             <p className=" text-lg max-w-[700px] w-full mr-2 hidden sm:block">
-              Nosso site apresenta um inovador Menu de Acessibilidade, permitindo que você ajuste o tamanho da fonte, escolha o idioma da página, ative leitores de tela, utilize opções de teclado e desfrute de recursos em linguagem de sinais.
+              Nosso site apresenta um inovador Menu de Acessibilidade, permitindo que você ajuste o tamanho da fonte, ative leitores de tela, utilize opções de teclado e desfrute de recursos em linguagem de sinais.
             </p>
           </div>
           <div>

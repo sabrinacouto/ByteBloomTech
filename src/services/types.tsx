@@ -1,4 +1,4 @@
-  
+
   //Define os três idiomas do componente SelectorLanguage (português, inglês e espanhol) 
   export enum Languages {
     pt = 'pt',
@@ -18,7 +18,6 @@
     enableAudio: string;
     disableAudio: string;
   }
-
   // Define uma interface para as reqs da Api ViaCep
  export interface Address {
     cep: string;
