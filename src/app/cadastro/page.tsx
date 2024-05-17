@@ -2,16 +2,10 @@
 import React, { useState, FormEvent, ChangeEvent} from 'react';
 import Image from 'next/image';
 import img from "../../../public/assets/giphy.gif"
-import { fetchViaCep } from '@/services/ViaCep/viaCepAPIService';
+import { fetchViaCep } from '@/services/ViaCep/viaCepAPI';
 import { useImageContext } from "@/contexts/imageContext/_app";
+import { Address } from '@/services/types';
 
-interface Address {
-  cep: string;
-  logradouro: string;
-  bairro: string;
-  cidade: string;
-  estado: string;
-}
 
 const Cadastro: React.FC = () => {
     const { showImages } = useImageContext();

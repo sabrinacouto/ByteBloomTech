@@ -2,7 +2,6 @@ import React from 'react';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from '@/components/Header/header';
-import Footer from '@/components/Footer/Footer';
 import "./globals.css";
 import Menu from '@/components/Menu/Menu';
 import { TbTextPlus } from 'react-icons/tb';
@@ -12,6 +11,7 @@ import { ImageProvider } from '@/contexts/imageContext/_app';
 import { DarkModeProvider } from '@/contexts/contrastContext/DarkModeContext';
 import { LeitorDeTelaProvider } from '@/contexts/speechContext/_app';
 import LeitorDeTela from '@/components/Leitor/leitor';
+import Footer from '@/components/Footer/Footer';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +38,7 @@ export default function RootLayout({
         {children} 
         <LeitorDeTela />
         <Footer></Footer>
+   
         <Menu></Menu>
         </TextSizeProvider>
         </DaltonismProvider>

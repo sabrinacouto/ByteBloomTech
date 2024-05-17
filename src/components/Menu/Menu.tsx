@@ -14,26 +14,13 @@ import { useImageContext } from '@/contexts/imageContext/_app';
 import { useDaltonism } from '@/contexts/daltonismContext/DaltonismContext';
 import { useDarkMode } from '@/contexts/contrastContext/DarkModeContext';
 import { useLeitorDeTela } from '@/contexts/speechContext/_app';
-import LanguageSelector from './MenuHeader/LanguageSelector';
-import { Languages } from './MenuHeader/types'; 
+import { Languages } from '@/services/types';
+import { MenuTexts } from '@/services/types';
 
-
-// Defina uma interface para os textos do menu
-interface MenuTexts {
-  accessibility: string;
-  content: string;
-  textUp: string;
-  disableImages:string;
-  enableImages:string;
-  contrastOff: string;
-  contrastOn: string;
-  audio: string;
-}
 
 type MenuTextsMap = {
   [key in Languages]: MenuTexts;
 };
-
 
 
 const Menu: React.FC = () => {
@@ -109,11 +96,6 @@ const imageButtonText = showImages ? menuTexts[selectedLanguage].disableImages :
   const closeModal = () => {
     setModalOpen(false);
   };
-
-  
-
-  
-
 
   return (
     <div className="relative">

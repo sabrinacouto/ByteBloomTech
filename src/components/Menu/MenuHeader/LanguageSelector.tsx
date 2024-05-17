@@ -1,5 +1,5 @@
 'use client'
-import { Languages } from "./types";
+import { Languages } from '@/services/types';
 
 import React, { useState } from 'react';
 

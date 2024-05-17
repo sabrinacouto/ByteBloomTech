@@ -4,7 +4,7 @@ import Image from 'next/image';
 import logo from "../../../../public/assets/logo.png"
 import LanguageSelector from './LanguageSelector';
 import { IoCloseSharp } from "react-icons/io5";
-import {Languages} from "./types"
+import { Languages } from '@/services/types';
 
 interface MenuHeaderProps {
   onClose: () => void;
