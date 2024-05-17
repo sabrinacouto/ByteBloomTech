@@ -16,15 +16,15 @@ const Header: React.FC = () => {
   return (
 
       <main>
-        <nav className="flex justify-between bg-[#0077B6] px-8 items-center py-6">
-          <div className="flex items-center gap-5">
+        <nav className="flex justify-between bg-[#0077B6] px-3 lg:px-8 items-center py-6">
+          <div className="flex items-center">
            
               <FiMenu
                 onClick={() => setMenu(true)}
-                className="text-4xl text-white cursor-pointer lg:hidden"
+                className="text-3xl text-white cursor-pointer lg:hidden"
               />
               <Link href="/">
-                <Image src={logo} className="h-[4rem] w-[5rem] md:h-[3rem] md:w-[4rem] mr-2 ml-1" alt="Uma nuvem branca com o nome da Salesforce em azul" />
+                <Image src={logo} className="h-auto w-auto md:h-[3rem] md:w-[4rem] mr-2 lg:mr-5 ml-4 lg:ml-1" alt="Uma nuvem branca com o nome da Salesforce em azul" />
               </Link>
          
             <ul className="flex gap-5">
@@ -89,7 +89,7 @@ const Header: React.FC = () => {
                 </Link>
                 <p className="text-white font-bold">|</p>
                 <Link href="/cadastro">
-                  <button type="button" className=" w-[4rem] h-auto md:w-[10rem] md:h-10  rounded-lg border-lg  bg-blue-500 hover:bg-blue-950 text-white shadow-2xl  ">
+                  <button type="button" className=" w-[6rem] h-[2.5rem] md:w-[10rem] md:h-10  rounded-lg border-lg  bg-blue-800 hover:bg-blue-950 text-white shadow-2xl  ">
                  Teste grátis
                   </button>
                 </Link>

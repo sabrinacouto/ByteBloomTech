@@ -81,7 +81,7 @@ const Footer = () =>{
               </div>
             </div>
           </div>
-          <h4 className="mt-8  text-white w-[25rem]">
+          <h4 className="mt-8 text-white">
           © { new Date().getFullYear()} - 
            <b> ByteBloomTech </b> - Todos os direitos reservados
           </h4>
