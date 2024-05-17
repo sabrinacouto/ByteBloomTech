@@ -8,9 +8,8 @@ import { DaltonismProvider } from '@/contexts/daltonismContext/_app';
 import { ImageProvider } from '@/contexts/imageContext/_app';
 import { DarkModeProvider } from '@/contexts/contrastContext/_app';
 import { LeitorDeTelaProvider } from '@/contexts/speechContext/_app';
-import LeitorDeTela from '@/components/Leitor/leitor';
 import Footer from '@/components/Footer/Footer';
-import Header from '@/components/Header/Header';
+import Navbar from '@/components/Nav/Navbar';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header/>
+        <Navbar/>
         <LeitorDeTelaProvider>
     
         <DarkModeProvider>
@@ -35,6 +34,7 @@ export default function RootLayout({
         <DaltonismProvider>
         <TextSizeProvider>
         {children} 
+
         <Footer></Footer>
    
         <Menu></Menu>

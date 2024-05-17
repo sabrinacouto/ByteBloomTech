@@ -9,7 +9,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 
-const Header: React.FC = () => {
+const Navbar: React.FC = () => {
   const [isSideMenuOpen, setMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
 
@@ -110,4 +110,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default Navbar;
