@@ -10,6 +10,7 @@ import { DarkModeProvider } from '@/contexts/contrastContext/_app';
 import { LeitorDeTelaProvider } from '@/contexts/speechContext/_app';
 import Footer from '@/components/Footer/Footer';
 import Navbar from '@/components/Header/Navbar';
+import Libras from '@/components/VLibras/VLibras';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Navbar/>
         <LeitorDeTelaProvider>
+        <Libras/>
     
         <DarkModeProvider>
         <ImageProvider>
@@ -35,9 +37,9 @@ export default function RootLayout({
         <TextSizeProvider>
         {children} 
 
-        <Footer></Footer>
-   
-        <Menu></Menu>
+        <Footer/>
+  
+        <Menu/>
         </TextSizeProvider>
         </DaltonismProvider>
         </ImageProvider>
