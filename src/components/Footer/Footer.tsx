@@ -13,13 +13,13 @@ const Footer = () =>{
 
         <footer className=" box-footer bg-[#0077B6]">
         <div className="max-w-screen-xl px-4 py-10 mx-auto sm:px-6 lg:px-6">
-          <div className="grid grid-cols-1 gap-10 lg:gap-[16rem] lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-10 lg:gap-[20rem] lg:grid-cols-3">
             <div className="">
             <Image src={logo} className="mr-5 h-[4rem] w-auto" alt="logo" />
               <h4 className="max-w-xs mt-4 text-sm text-white">
               Entre em contato 0800 891 1887
               </h4>
-              <div className="flex mt-8 space-x-4 text-gray-600">
+              <div className="flex mt-5 space-x-4 text-gray-600">
                 <a className="hover:opacity-75" href="https://www.facebook.com/salesforce/?locale=pt_BR" target="_blank" rel="noreferrer" title = "Facebook">
                 <FaFacebookSquare className="text-white text-2xl" />
                 </a>
@@ -81,7 +81,7 @@ const Footer = () =>{
               </div>
             </div>
           </div>
-          <h4 className="mt-8 text-white">
+          <h4 className="mt-5 text-white w-[19rem]">
           © { new Date().getFullYear()} - 
            <b> ByteBloomTech </b> - Todos os direitos reservados
           </h4>

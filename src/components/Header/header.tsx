@@ -89,7 +89,7 @@ const Header: React.FC = () => {
                 </Link>
                 <p className="text-white font-bold">|</p>
                 <Link href="/cadastro">
-                  <button type="button" className=" w-[6rem] h-[2.5rem] md:w-[10rem] md:h-10  rounded-lg border-lg  bg-blue-800 hover:bg-blue-950 text-white shadow-2xl  ">
+                  <button type="button" className=" w-[6rem] h-[2.5rem] md:w-[10rem] md:h-10  rounded-lg border-lg  bg-[#194750] hover:bg-blue-950 text-white shadow-2xl  ">
                  Teste grátis
                   </button>
                 </Link>

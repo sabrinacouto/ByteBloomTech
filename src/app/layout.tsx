@@ -1,7 +1,6 @@
 import React from 'react'; 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Header from '@/components/Header/Header';
 import "./globals.css";
 import Menu from '@/components/Menu/Menu';
 import TextSizeProvider from '@/contexts/textContext/_app';
@@ -11,6 +10,7 @@ import { DarkModeProvider } from '@/contexts/contrastContext/_app';
 import { LeitorDeTelaProvider } from '@/contexts/speechContext/_app';
 import LeitorDeTela from '@/components/Leitor/leitor';
 import Footer from '@/components/Footer/Footer';
+import Header from '@/components/Header/Header';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,7 +35,6 @@ export default function RootLayout({
         <DaltonismProvider>
         <TextSizeProvider>
         {children} 
-        <LeitorDeTela />
         <Footer></Footer>
    
         <Menu></Menu>

@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <section id="home">
     <div className="section flex justify-center">
-      <div className="flex items-center justify-center  flex-col sm:flex-row w-full shadow-xl inset-y-3">
+      <div className="flex items-center justify-center px-5  flex-col sm:flex-row w-full shadow-xl inset-y-3">
         <div className="text">
           <h1 className="gradient text-2xl sm:text-5xl max-w-[600px] w-full">
             Introducing Salesforce Accessibility
