@@ -1,14 +1,13 @@
 import React from 'react'; 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Header from '@/components/Header/header';
+import Header from '@/components/Header/Header';
 import "./globals.css";
 import Menu from '@/components/Menu/Menu';
-import { TbTextPlus } from 'react-icons/tb';
-import TextSizeProvider from '@/contexts/textContext/TextSizeContext';
-import { DaltonismProvider } from '@/contexts/daltonismContext/DaltonismContext';
+import TextSizeProvider from '@/contexts/textContext/_app';
+import { DaltonismProvider } from '@/contexts/daltonismContext/_app';
 import { ImageProvider } from '@/contexts/imageContext/_app';
-import { DarkModeProvider } from '@/contexts/contrastContext/DarkModeContext';
+import { DarkModeProvider } from '@/contexts/contrastContext/_app';
 import { LeitorDeTelaProvider } from '@/contexts/speechContext/_app';
 import LeitorDeTela from '@/components/Leitor/leitor';
 import Footer from '@/components/Footer/Footer';
