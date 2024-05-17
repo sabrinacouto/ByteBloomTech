@@ -113,9 +113,9 @@ const Cadastro: React.FC = () => {
         <section id ="cadastro" className='flex justify-center my-[5rem]'>
         <div className="container p-7 justify-center items-center  flex flex-col md:flex-row ">
             
-            <form  className = " bg-white shadow-2xl p-10 rounded-xl" onSubmit={handleSubmit}>
+            <form  className = "card bg-white shadow-2xl p-10 rounded-xl" onSubmit={handleSubmit}>
                 <div className='mb-[5rem] space-y-3 w-[45rem]'>
-                <h3 className='gradient'>Inscreva-se para começar sua avaliação gratuita.</h3>
+                <h3 className='gradient text-2xl'>Inscreva-se para começar sua avaliação gratuita.</h3>
                 <p>Preencha o formulário abaixo e em breve entraremos em contato sobre seu teste gratuito.</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-9 lg:gap-15">
