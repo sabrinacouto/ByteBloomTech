@@ -12,22 +12,23 @@ import { useImageContext } from "@/contexts/imageContext/_app";
 import { useLeitorDeTela } from "@/contexts/speechContext/_app";
 import LeitorDeTela from "@/components/Leitor/leitor";
 
+
 const Empresa = () => {
   const { showImages } = useImageContext();
-  const { ativo, ativarLeitor, setarTexto } = useLeitorDeTela();
+  const { ativo, setarTexto } = useLeitorDeTela();
 
-  // Exemplo de texto a ser lido pelo leitor de tela
   const textoParaLeitura = `
     Bem-vindo à página da Salesforce. Aqui está uma breve história sobre a empresa.
     Em 1999, quatro fundadores da Salesforce, trabalhando lado a lado em um pequeno apartamento de São Francisco, lançaram um sistema de gerenciamento de relacionamento com o cliente (CRM) com uma abordagem inovadora.
     Todo o software e os dados críticos do cliente seriam hospedados na Internet e disponibilizados como um serviço de assinatura. Esse modelo pioneiro de “software como serviço”, ou SaaS, se espalhou rapidamente pelo setor de tecnologia.
   `;
 
-  // Ativar o leitor de tela e definir o texto quando o componente for montado
+  // Definir o texto quando o componente for montado, se o leitor de tela estiver ativo
   useEffect(() => {
-    ativarLeitor();
-    setarTexto(textoParaLeitura);
-  }, []);
+    if (ativo) {
+      setarTexto(textoParaLeitura);
+    }
+  }, [ativo, setarTexto]);
   return (
 
     <section id="empresa">
@@ -126,7 +127,6 @@ const Empresa = () => {
     
   </div>
 </div>
-
 
 <LeitorDeTela></LeitorDeTela>
 

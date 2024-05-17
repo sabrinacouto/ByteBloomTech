@@ -15,7 +15,8 @@
     enableImages:string;
     contrastOff: string;
     contrastOn: string;
-    audio: string;
+    enableAudio: string;
+    disableAudio: string;
   }
 
   // Define uma interface para as reqs da Api ViaCep

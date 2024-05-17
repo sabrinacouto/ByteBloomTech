@@ -10,7 +10,7 @@ enum DaltonismType {
 }
 
 const daltonismTexts = {
-  [DaltonismType.Normal]: 'Normal',
+  [DaltonismType.Normal]: 'Daltonismo',
   [DaltonismType.Achromatopsia]: 'Achromatopsia',
   [DaltonismType.Tritanopia]: 'Tritanopia',
   [DaltonismType.Protanopia]: 'Protanopia',

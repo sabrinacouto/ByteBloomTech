@@ -1,20 +1,34 @@
 'use client'
+import { useEffect } from "react"
 import Mascotes from "@/components/Mascotes/mascotes"
 import Image from "next/image"
 import julianaIcon from "../../../public/assets/juliana.png"
 import kevinIcon from "../../../public/assets/kevin.png"
 import sabrinaIcon from "../../../public/assets/sabrina.png"
 import { useImageContext } from "@/contexts/imageContext/_app";
+import { useLeitorDeTela } from "@/contexts/speechContext/_app"
 import LeitorDeTela from "@/components/Leitor/leitor"
 
 
-
-        const Desenvolvedores = () => {
-          const { showImages } = useImageContext();
+const Desenvolvedores = () => {
+    const { showImages } = useImageContext();
+    const { ativo, setarTexto } = useLeitorDeTela();
+    const textoParaLeitura = `
+        ByteBloomTech - 1TDSZ: Desenvolvedores:
+        Juliana Moreira, número de identificação 554113,
+        Kevin Nobre, número de identificação 552590,
+        Sabrina Couto, número de identificação 552728.
+    `;
+    
+    // Definir o texto quando o componente for montado, se o leitor de tela estiver ativo
+    useEffect(() => {
+        if (ativo) {
+            setarTexto(textoParaLeitura);
+        }
+    }, [ativo, setarTexto]);
             return (
               <section id="desenvolvedores" className="w-full">
                 <div> 
-                <LeitorDeTela />
                   <div className="mb-10 mt-5">
                     <h1 className="text-lg md:text-2xl lg:text-3xl font-bold gradient text-center">ByteBloomTech - 1TDSZ</h1>
                   </div>
@@ -54,7 +68,7 @@ import LeitorDeTela from "@/components/Leitor/leitor"
                 <div className="mt-10">
                   <Mascotes/>
                 </div>
-               
+               <LeitorDeTela></LeitorDeTela>
               </section>
             )
           }

@@ -29,7 +29,7 @@ const Menu: React.FC = () => {
   const { showImages, toggleImages } = useImageContext();
   const { toggleDaltonismType, daltonismText, resetDaltonism} = useDaltonism();
   const { darkMode, toggleDarkMode } = useDarkMode();// Use o hook useContext para acessar o contexto DarkModeContext
-  const { ativarLeitor } = useLeitorDeTela();
+  const { ativarLeitor, desativarLeitor, ativo } = useLeitorDeTela();
   const [selectedLanguage, setSelectedLanguage] = useState<Languages>(Languages.pt); 
   // Define o tipo de selectedLanguage como Languages.pt
 
@@ -46,7 +46,8 @@ const Menu: React.FC = () => {
       disableImages: 'Desativar imagens',
       contrastOff: 'Alterar contraste',
       contrastOn: "Voltar ao padrão",
-      audio: 'Ativar audio'
+      enableAudio: 'Ativar audio',
+      disableAudio: 'Desativar audio'
     },
     [Languages.en]: {
       accessibility: 'Accessibility',
@@ -56,7 +57,8 @@ const Menu: React.FC = () => {
       disableImages: 'Disable images',
       contrastOff: 'Change contrast',
       contrastOn: "Vack to default",
-      audio: 'Enable audio'
+      enableAudio: 'Enable audio',
+      disableAudio: 'Disable audio',
     },
     [Languages.es]: {
       accessibility: 'Accesibilidad',
@@ -66,7 +68,8 @@ const Menu: React.FC = () => {
       disableImages: 'Ocultar imágenes',
       contrastOff: 'Cambiar el contraste',
       contrastOn: "Volver al predeterminado",
-      audio: "Activar audio"
+      enableAudio: 'Activar audio',
+      disableAudio: 'Desactivar audio',
     },
   };
 
@@ -87,7 +90,17 @@ const Menu: React.FC = () => {
     }
 }
 
+//Função que contola o botão de ativar o leitor de tela
+const handleAtivarLeitor = () => {
+  if (ativo) {
+    desativarLeitor(); //Se estiver ativo, desativa o leitor.
+  } else {
+    ativarLeitor(); // caso não estiver, ativa o leitor
+  }
+};
+//criando uma constante pra mudar o texto conforme o usuário clica no botão.
 const imageButtonText = showImages ? menuTexts[selectedLanguage].disableImages : menuTexts[selectedLanguage].enableImages;
+const audioButtonText = ativo ? menuTexts[selectedLanguage].disableAudio : menuTexts[selectedLanguage].enableAudio;
 
   const openModal = () => {
     setModalOpen(true);
@@ -96,6 +109,8 @@ const imageButtonText = showImages ? menuTexts[selectedLanguage].disableImages :
   const closeModal = () => {
     setModalOpen(false);
   };
+
+
 
   return (
     <div className="relative">
@@ -140,12 +155,12 @@ const imageButtonText = showImages ? menuTexts[selectedLanguage].disableImages :
                        </p>
                     </div>
 
-                    <div className="border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-100 border w-[7rem] gap-3 h-[6rem] rounded-lg cursor-pointer flex justify-center items-center flex-col hover-effect" onClick={ativarLeitor}>
+                    <div className="border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-100 border w-[7rem] gap-3 h-[6rem] rounded-lg cursor-pointer flex justify-center items-center flex-col hover-effect" onClick={handleAtivarLeitor}>
                         <p>
                         <AiTwotoneSound className='text-2xl text-gray-500 hover:text-black icons' />
                         </p>
                         <p className=' menu-item text-xs font-bold text-gray-500 text-center'>
-                        {menuTexts[selectedLanguage].audio}
+                        {audioButtonText}
                     </p>
                     </div>
 
