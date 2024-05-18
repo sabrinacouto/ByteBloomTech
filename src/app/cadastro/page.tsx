@@ -324,7 +324,7 @@ const Cadastro: React.FC = () => {
                 
                 
                 <div className="flex flex-col">
-                    <label htmlFor="logradouro" className="mb-2 ml-2">Logradouro:</label>
+                    <label htmlFor="logradouro" className="mb-2 ml-2">Logradouro</label>
                     <input
                         type="text"
                         name="logradouro"
@@ -390,7 +390,7 @@ const Cadastro: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col">
-                    <label htmlFor="confirmarSenha" className="mb-2 ml-2">Confirme sua senha:</label>
+                    <label htmlFor="confirmarSenha" className="mb-2 ml-2">Confirme sua senha</label>
                     <input
                         type="password"
                         name="confirmarSenha"
