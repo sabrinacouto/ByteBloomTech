@@ -222,7 +222,7 @@ const Cadastro: React.FC = () => {
                 </div>
              
                 <div className="flex flex-col">
-                    <label htmlFor="empresa" className="mb-2 text-xs ml-2">Empresa</label>
+                    <label htmlFor="empresa" className="mb-2 ml-2">Empresa</label>
                     <input
                         type="text"
                         name="nomeEmpresa"
