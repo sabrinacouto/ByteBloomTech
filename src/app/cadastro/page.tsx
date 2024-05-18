@@ -1,131 +1,169 @@
 'use client'
 import React, { useState, FormEvent, ChangeEvent} from 'react';
-import Image from 'next/image';
-import img from "../../../public/assets/giphy.gif"
+import { createContaCliente } from '@/services/contaClienteAPI';
 import { fetchViaCep } from '@/services/ViaCep/viaCepAPI';
-import { useImageContext } from "@/contexts/imageContext/_app";
 import { Address } from '@/services/types';
+import Image from 'next/image';
+import logo from "./../../../public/assets/logoazul.png"
+
 
 
 const Cadastro: React.FC = () => {
-    const { showImages } = useImageContext();
     const [address, setAddress] = useState<Address>({
         cep: '',
         logradouro: '',
         bairro: '',
         cidade: '',
         estado: '',
-      });
-      
-      const [contaCliente, setContaCliente] = useState({
-          nome: '',
-          sobrenome: '',
-          cargo: '',
-          nomeEmpresa: '',
-          telefone: '',
-          email: '',
-          cep: '',
-          rua: '',
-          bairro: '',
-          cidade: '',
-          estado: '',
-          senha: ''
-      });
-  
-      const [successMessage, setSuccessMessage] = useState<string>('');
+    });
 
-      const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-          event.preventDefault();
-  
-          try {
-              const response = await fetch('http://localhost:8080/contaCliente', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(contaCliente)
-              });
-  
-              if (response.ok) {
-                  setSuccessMessage('Conta criada com sucesso!');
-                  setContaCliente({
-                      nome: '',
-                      sobrenome: '',
-                      cargo: '',
-                      nomeEmpresa: '',
-                      telefone: '',
-                      email: '',
-                      cep: '',
-                      rua: '',
-                      bairro: '',
-                      cidade: '',
-                      estado: '',
-                      senha: ''
-                  });
-              } else {
-                  console.error('Erro ao criar ContaCliente:', response.statusText);
-              }
-          } catch (error) {
-              console.error('Erro ao enviar solicitação:', error);
-          }
-      };
-  
-      const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-          const { name, value } = event.target;
-          setContaCliente(prevState => ({
-              ...prevState,
-              [name]: value
-          }));
-      };
+    const [contaCliente, setContaCliente] = useState({
+        nome: '',
+        sobrenome: '',
+        cargo: '',
+        nomeEmpresa: '',
+        telefone: '',
+        email: '',
+        cep: '',
+        logradouro: '',
+        numero: '',
+        complemento: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+        senha: '',
+    });
 
+    const [confirmarSenha, setConfirmarSenha] = useState('');
+
+    const [inputErrors, setInputErrors] = useState({
+        nome: false,
+        sobrenome: false,
+        cargo: false,
+        nomeEmpresa: false,
+        telefone: false,
+        email: false,
+        cep: false,
+        logradouro: false,
+        numero: false,
+        complemento: false,
+        bairro: false,
+        cidade: false,
+        estado: false,
+        senha: false,
+        confirmarSenha: false
+    });
+
+    const [passwordError, setPasswordError] = useState('');
+
+    const [successMessage, setSuccessMessage] = useState<string>('');
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            if (Object.values(inputErrors).some(error => error)) {
+                throw new Error('Por favor, preencha todos os campos obrigatórios.');
+            }
     
-      const handleCEPChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+            console.log('Senha:', contaCliente.senha);
+            console.log('Confirmar Senha:', confirmarSenha);
+    
+            if (contaCliente.senha !== confirmarSenha) {
+                throw new Error('As senhas não correspondem.');
+            }
+    
+            await createContaCliente(contaCliente);
+            setSuccessMessage('Conta criada com sucesso!');
+            setContaCliente({
+                nome: '',
+                sobrenome: '',
+                cargo: '',
+                nomeEmpresa: '',
+                telefone: '',
+                email: '',
+                cep: '',
+                logradouro: '',
+                numero: '',
+                complemento: '',
+                bairro: '',
+                cidade: '',
+                estado: '',
+                senha: '',
+            });
+        } catch (error: any) {
+            setPasswordError(error.message);
+        }
+    };
+    
+    
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setContaCliente(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+        setInputErrors(prevState => ({
+            ...prevState,
+            [name]: !value
+        }));
+    };
+
+    const handleCEPChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const cep = event.target.value.replace(/\D/g, '');
         if (cep.length !== 8) {
-          return;
+            return;
         }
-    
-        try {
-          const data = await fetchViaCep(cep);
-          setAddress({
-              cep: data.cep,
-              logradouro: data.logradouro,
-              bairro: data.bairro,
-              cidade: data.localidade,
-              estado: data.uf,
-          });
-          // Atualizar automaticamente os campos do formulário com os dados do CEP
-          setContaCliente(prevState => ({
-              ...prevState,
-              cep: data.cep,
-              rua: data.logradouro,
-              bairro: data.bairro,
-              cidade: data.localidade,
-              estado: data.uf,
-          }));
-        } catch (error) {
-          console.error('Erro ao buscar CEP:', error);
-        }
-      };
 
+        try {
+            const data = await fetchViaCep(cep);
+            setAddress({
+                cep: data.cep,
+                logradouro: data.logradouro,
+                bairro: data.bairro,
+                cidade: data.localidade,
+                estado: data.uf,
+            });
+            setContaCliente(prevState => ({
+                ...prevState,
+                cep: data.cep,
+                logradouro: data.logradouro,
+                bairro: data.bairro,
+                cidade: data.localidade,
+                estado: data.uf,
+            }));
+        } catch (error) {
+            console.error('Erro ao buscar CEP:', error);
+        }
+    };
+
+    const handleConfirmarSenhaChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setConfirmarSenha(value);
+        setInputErrors(prevState => ({
+            ...prevState,
+            confirmarSenha: contaCliente.senha !== value
+        }));
+    };
     return (
 
         <section id ="cadastro" className='flex justify-center my-[5rem]'>
         <div className="container p-7 justify-center items-center  flex flex-col md:flex-row ">
             
             <form  className = "card bg-white shadow-2xl p-10 rounded-xl" onSubmit={handleSubmit}>
-                <div className='mb-[5rem] space-y-3 w-[45rem]'>
+
+                <Image src={logo} alt="Logo azul da Salesforce" className='h-[4rem] w-auto mb-4'/>
+
+                <div className='mb-[5rem] space-y-3 w-auto lg:w-[30rem]'>
                 <h3 className='gradient text-2xl'>Inscreva-se para começar sua avaliação gratuita.</h3>
                 <p>Preencha o formulário abaixo e em breve entraremos em contato sobre seu teste gratuito.</p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-9 lg:gap-15">
+                <div className="grid grid-cols-1 gap-4 md:gap-9 lg:gap-15">
                 <div className="flex flex-col">
-                    <label htmlFor="nome" className="text-description mb-2">Nome</label>
+                    <label htmlFor="nome" className="mb-2 ml-2">Nome</label>
                     <input
                         type="text"
                         name="nome"
                         id="nome"
-                        className="custom-input rounded-lg p-2.5 placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        className="custom-input rounded-3xl p-2.5 placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Nome"
                         autoComplete="name"
                         placeholder='Digite seu nome'
@@ -133,14 +171,15 @@ const Cadastro: React.FC = () => {
                         onChange={handleChange}
                         required
                     />
+                  {inputErrors.sobrenome && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="sobrenome" className="text-description mb-2">Sobrenome</label>
+                    <label htmlFor="sobrenome" className="mb-2 ml-2">Sobrenome</label>
                     <input
                         type="text"
                         name="sobrenome"
                         id="sobrenome"
-                        className="custom-input rounded-lg p-2.5 placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        className="custom-input rounded-3xl p-2.5 placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Sobrenome"
                         autoComplete="family-name"
                         placeholder='Digite seu sobrenome'
@@ -148,14 +187,15 @@ const Cadastro: React.FC = () => {
                         onChange={handleChange}
                         required
                     />
+                     {inputErrors.sobrenome && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="email" className=" text-description mb-2">Email</label>
+                    <label htmlFor="email" className="mb-2 ml-2">Email</label>
                     <input
                         type="email"
                         name="email"
                         id="emailInsert"
-                        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Email *"
                         autoComplete="email"
                         placeholder='exemplo@email.com'
@@ -163,60 +203,63 @@ const Cadastro: React.FC = () => {
                         onChange={handleChange}
                         required
                     />
+                     {inputErrors.email && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="cargo" className="text-description mb-2">Cargo</label>
+                    <label htmlFor="cargo" className="mb-2 ml-2">Cargo</label>
                     <input
                         type="text"
                         name="cargo"
                         id="cargo"
-                        className="custom-input  rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
                         title="Cargo"
                         placeholder='Digite seu cargo'
                         value={contaCliente.cargo} 
                         onChange={handleChange}
                         required
                     />
+                     {inputErrors.cargo && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div>
              
-    
-<div className="flex flex-col">
-    <label htmlFor="empresa" className="text-description mb-2">Empresa</label>
-    <input
-        type="text"
-        name="nomeEmpresa"
-        id="empresa"
-        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 "
-        title="Empresa"
-        placeholder='Nome da sua empresa'
-        value={contaCliente.nomeEmpresa} 
-        onChange={handleChange}
-        required
-    />
-</div>
-
-<div className="flex flex-col">
-    <label htmlFor="telefone" className="text-description mb-2">Telefone</label>
-    <input
-        type="tel"
-        id="telefone"
-        name="telefone"
-        aria-describedby="helper-text-explanation"
-        placeholder='(00) 00000-0000'
-        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
-        value={contaCliente.telefone} 
-        onChange={handleChange}
-        required
-    />
-</div>
                 <div className="flex flex-col">
-                    <label htmlFor="cep" className="text-description mb-2">CEP</label>
+                    <label htmlFor="empresa" className="mb-2 text-xs ml-2">Empresa</label>
+                    <input
+                        type="text"
+                        name="nomeEmpresa"
+                        id="empresa"
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 "
+                        title="Empresa"
+                        placeholder='Nome da sua empresa'
+                        value={contaCliente.nomeEmpresa} 
+                        onChange={handleChange}
+                        required
+                    />
+                     {inputErrors.nomeEmpresa && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
+                </div>
+
+                <div className="flex flex-col">
+                    <label htmlFor="telefone" className="mb-2 ml-2">Telefone</label>
+                    <input
+                        type="tel"
+                        id="telefone"
+                        name="telefone"
+                        aria-describedby="helper-text-explanation"
+                        placeholder='(00) 00000-0000'
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        value={contaCliente.telefone} 
+                        onChange={handleChange}
+                        required
+                    />
+                     {inputErrors.telefone && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
+                </div>
+                <div className="flex flex-col">
+                    <label htmlFor="cep" className="mb-2 ml-2">CEP</label>
                     <input
                         type="text"
                         name="cep"
                         id="cep"
                         placeholder='0000-000'
-                        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="CEP"
                         onChange={(event) => {
                             handleCEPChange(event);
@@ -226,10 +269,11 @@ const Cadastro: React.FC = () => {
                         
                         required
                     />
+                     {inputErrors.cep && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div>
 
                 <div className="flex flex-col">
-                    <label htmlFor="estado" className="text-description mb-2">Estado</label>
+                    <label htmlFor="estado" className="mb-2 ml-2">Estado</label>
                     <input
                         type="text"
                         name="estado"
@@ -238,14 +282,15 @@ const Cadastro: React.FC = () => {
                         value={contaCliente.estado}
                         onChange={handleChange}
                       
-                        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Estado"
                         required
                     />
+                     {inputErrors.estado && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div> 
 
                 <div className="flex flex-col">
-                    <label htmlFor="cidade" className="text-description mb-2">Cidade</label>
+                    <label htmlFor="cidade" className="mb-2 ml-2">Cidade</label>
                     <input
                         type="text"
                         name="cidade"
@@ -253,58 +298,113 @@ const Cadastro: React.FC = () => {
                         placeholder='Cidade'
                         value={contaCliente.cidade} 
                         onChange={handleChange}
-                  
-                        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Cidade"
                         required 
                     />
+                     {inputErrors.cidade && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div>
 
                 <div className="flex flex-col">
-                    <label htmlFor="bairro" className="text-description mb-2">Bairro</label>
+                    <label htmlFor="bairro" className="mb-2 ml-2">Bairro</label>
                     <input
                         type="text"
                         name="bairro"
                         id="bairro"
-                        placeholder='Seu bairro'
+                        placeholder='Digite o bairro da empresa'
                         value={contaCliente.bairro}
                         onChange={handleChange}
-                        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Bairro" 
                         required
                     />
+                     {inputErrors.bairro && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div> 
+
+                
                 
                 <div className="flex flex-col">
-                    <label htmlFor="rua" className="text-description mb-2">Logradouro:</label>
+                    <label htmlFor="logradouro" className="mb-2 ml-2">Logradouro:</label>
                     <input
                         type="text"
-                        name="rua"
-                        id="rua"
+                        name="logradouro"
+                        id="logradouro"
                         placeholder='Ex: "Avenida Brasil"'
-                        value={contaCliente.rua}
+                        value={contaCliente.logradouro}
                         onChange={handleChange}
-                        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
-                        title="Rua" 
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        title="Logradouro" 
                         required
                     />
+                     {inputErrors.logradouro && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div>
 
                 <div className="flex flex-col">
-                    <label htmlFor="senha" className="text-description mb-2">Senha</label>
+                    <label htmlFor="numero" className="mb-2 ml-2">Número</label>
+                    <input
+                        type="text"
+                        name="numero"
+                        id="numero"
+                        value={contaCliente.numero} 
+                        onChange={handleChange}
+                        placeholder='Digite o número do endereço'
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        title="Numero" 
+                        required
+                    />
+                     {inputErrors.numero && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
+                </div>
+
+                
+                <div className="flex flex-col">
+                    <label htmlFor="Complemento" className="mb-2 ml-2">Complemento</label>
+                    <input
+                        type="text"
+                        name="complemento"
+                        id="complemento"
+                        value={contaCliente.complemento} 
+                        onChange={handleChange}
+                        placeholder='Ex: Andar 4 - Sala 3'
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
+                        title="Numero" 
+                        required
+                    />
+                     {inputErrors.complemento && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
+                </div>
+
+
+                <div className="flex flex-col">
+                    <label htmlFor="senha" className="mb-2 ml-2">Senha</label>
                     <input
                         type="password"
                         name="senha"
                         id="senha"
-                        placeholder='*******'
+                        placeholder='Digite sua senha'
                         value = {contaCliente.senha}
                         onChange={handleChange}
-                        className="custom-input rounded-lg placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         title="Senha"
                         required
                     />
+                     {inputErrors.senha && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div>
-                
+
+                <div className="flex flex-col">
+                    <label htmlFor="confirmarSenha" className="mb-2 ml-2">Confirme sua senha:</label>
+                    <input
+                        type="password"
+                        name="confirmarSenha"
+                        id="confirmarSenha"
+                        value={confirmarSenha} // Alterado aqui para confirmarSenha
+                        onChange={handleConfirmarSenhaChange} // Adicionado o evento onChange
+                        placeholder='Digite novamente a sua senha'
+                        className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        title="Senha"
+                        required
+                    />
+                       {inputErrors.confirmarSenha && <span className="text-red-500 text-xs ml-2">As senhas não correspondem.</span>}
+                </div>
+                {passwordError && <div className="text-red-500">{passwordError}</div>}
                 <div className="mt-8">
                     <input
                         name="userTerms"
@@ -317,7 +417,7 @@ const Cadastro: React.FC = () => {
                 </div>
                 {successMessage && <div className="text-green-500">{successMessage}</div>}
                 <button
-                    className="bg-gradient-to-r from-[#0CBFE3] to-[#024754] hover:bg-[#0CBFE3] text-white mt-8 hover:text-[#1E494F] text-xl h-[4rem] font-semibold rounded-md"
+                    className="bg-gradient-to-r from-[#0CBFE3] to-[#024754] hover:bg-[#0CBFE3] text-white mt-8 hover:text-[#1E494F] rounded-3xl text-xl h-[4rem] font-semibold"
                     type="submit"
                 >
                     Cadastre-se

@@ -26,3 +26,21 @@
     cidade: string;
     estado: string;
   }
+
+// INTERFACE DA API CONTACLIENTE
+  export interface ContaCliente {
+    nome: string;
+    sobrenome: string;
+    cargo: string;
+    nomeEmpresa: string;
+    telefone: string;
+    email: string;
+    cep: string;
+    logradouro: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+    senha: string;
+  }
