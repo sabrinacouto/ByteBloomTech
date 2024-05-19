@@ -1,14 +1,38 @@
 'use client'
 import Image from 'next/image';
+import { useEffect } from 'react';
 import img1 from "../../../public/assets/360.png"
 import img2 from "../../../public/assets/products.png"
 import img3 from "../../../public/assets/image 24.png"
 import img4 from "../../../public/assets/image 25.png"
 import img5 from "../../../public/assets/image 26.png"
 import { useImageContext } from "@/contexts/imageContext/_app";
+import { useLeitorDeTela } from "@/contexts/speechContext/_app";
+import LeitorDeTela from "@/components/Leitor/leitor";
 
 const Produtos = () => {
   const { showImages } = useImageContext();
+  const { ativo, setarTexto } = useLeitorDeTela();
+
+  const textoParaLeitura = `
+    Agora todo mundo é um Einstein. O Customer 360, todo o nosso portfólio de produtos, ajuda você a se conectar com seus clientes 
+    de uma maneira totalmente nova. Agora todos — suas equipes de marketing, vendas, e-commerce, serviços de atendimento ao cliente,
+   TI e dados — podem trabalhar de maneira mais inteligente e ser mais produtivos com dados conectados, IA confiável e o CRM de IA
+   nº 1. Dados + IA + CRM. Essa é a genialidade do Customer 360. Dados conectados levam a experiências perfeitas para o cliente.
+   Conecte todos os seus dados para dar a cada equipe uma visão completa de cada cliente. Com seus dados unidos, suas equipes podem
+   oferecer a experiência certa, na hora certa e sempre. Capacite as equipes com IA confiável em uma plataforma segura e
+   escalonável. Com IA desenvolvida para CRM, suas equipes estão mais produtivas do que nunca, gerando conteúdo otimizado para
+   desempenho imediato. E com o Einstein Trust Layer, seus dados estarão sempre privados e protegidos. As equipes podem fazer mais e
+   mais rápido quando têm a ferramenta certa para cada trabalho. Quer potencializar os resultados e encantar os clientes? Mantenha
+   tudo avançando cada vez mais, unindo todas as suas equipes em torno de seus clientes com os melhores aplicativos da categoria
+   desenvolvidos pelo Einstein.
+  `;
+
+  useEffect(() => {
+    if (ativo) {
+      setarTexto(textoParaLeitura);
+    }
+  }, [ativo, setarTexto]);
     return (
      
         <section id="produtos">
@@ -105,6 +129,7 @@ const Produtos = () => {
     </div>
   </div>
 </div>
+<LeitorDeTela/>
     </section>
     );
   };

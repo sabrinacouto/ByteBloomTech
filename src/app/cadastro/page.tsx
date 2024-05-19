@@ -1,10 +1,12 @@
 'use client'
-import React, { useState, FormEvent, ChangeEvent} from 'react';
+import React, { useState, useEffect, FormEvent, ChangeEvent} from 'react';
 import { createContaCliente } from '@/services/contaClienteAPI/contaClienteAPI';
 import { fetchViaCep } from '@/services/ViaCep/viaCepAPI';
 import { Address, ContaCliente } from '@/services/types';
 import Image from 'next/image';
 import logo from "./../../../public/assets/logoazul.png"
+import { useLeitorDeTela } from "@/contexts/speechContext/_app";
+import LeitorDeTela from "@/components/Leitor/leitor";
 
 
 
@@ -58,6 +60,25 @@ const Cadastro: React.FC = () => {
     const [passwordError, setPasswordError] = useState('');
 
     const [successMessage, setSuccessMessage] = useState<string>('');
+
+    const { ativo, setarTexto } = useLeitorDeTela();
+
+    const textoParaLeitura = `
+    Inscreva-se para começar sua avaliação gratuita.
+    Preencha o formulário abaixo e em breve entraremos em contato sobre seu teste gratuito. Nome. Digite o seu nome. Sobrenome.
+    Digite seu sobrenome. Email. Exemplo@email.com. Cargo. Digite seu cargo. Empresa. Digite o nome da sua empresa. Telefone. CEP.
+    Estado. Cidade. Bairro. Digite o bairro da sua empresa. Logradouro. Número. Complemento. Ex: Andar 4 - Sala 3. Senha. DIigite sua senha.
+    Confirmar senha. Digite novamente a sua senha. Li e concordo com os termos de uso. Cadastre-se.
+    `;
+
+    useEffect(() => {
+        if (ativo) {
+            setarTexto(textoParaLeitura);
+        }
+    }, [ativo, setarTexto]);
+
+    // Funções de manipulação de formulário
+
 
     // Função para lidar com o envio do formulário
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -437,6 +458,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 </div>
             </form>    
         </div>
+        <LeitorDeTela/>
         </section>
   
     );

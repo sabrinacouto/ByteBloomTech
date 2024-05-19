@@ -17,11 +17,22 @@ const Empresa = () => {
   const { showImages } = useImageContext();
   const { ativo, setarTexto } = useLeitorDeTela();
 
+  //Lê o texto da página ao clicar no leitor de tela
   const textoParaLeitura = `
-    Bem-vindo à página da Salesforce. Aqui está uma breve história sobre a empresa.
-    Em 1999, quatro fundadores da Salesforce, trabalhando lado a lado em um pequeno apartamento de São Francisco, lançaram um sistema de gerenciamento de relacionamento com o cliente (CRM) com uma abordagem inovadora.
-    Todo o software e os dados críticos do cliente seriam hospedados na Internet e disponibilizados como um serviço de assinatura. Esse modelo pioneiro de “software como serviço”, ou SaaS, se espalhou rapidamente pelo setor de tecnologia.
-  `;
+  Em 1999, quatro fundadores da Salesforce, trabalhando lado a lado em um pequeno apartamento de São Francisco, lançaram um sistema de gerenciamento de relacionamento com o cliente (CRM) com uma abordagem inovadora. Todo o software e os dados críticos do cliente seriam hospedados na Internet e disponibilizados como um serviço de assinatura. Esse modelo pioneiro de “software como serviço”, ou SaaS, se espalhou rapidamente pelo setor de tecnologia.
+
+  Nossos valores essenciais:
+
+  Confiança: Agimos como consultores confiáveis. Conquistamos a confiança de nossos clientes, funcionários e família estendida por meio de transparência, segurança, conformidade, privacidade e desempenho. E fornecemos a infraestrutura mais confiável do setor.
+
+  Sucesso do Cliente: Quando nossos clientes são bem-sucedidos, temos sucesso. Então, nós os defendemos para alcançar coisas extraordinárias. Inovamos e expandimos nossas ofertas de negócios para fornecer a todos os nossos acionistas novas vias para alcançar um sucesso cada vez maior.
+
+  Inovação: Inovamos juntos. As opiniões de nossos clientes nos ajudam a desenvolver produtos que possam atender melhor às necessidades de negócios. Os lançamentos contínuos de tecnologia e novas iniciativas proporcionam uma vantagem competitiva a nossos clientes.
+
+  Igualdade: Todos merecem oportunidades iguais. Acreditamos que todos devem ser vistos, ouvidos, valorizados e capacitados para o sucesso. Ouvir perspectivas diversas impulsiona a inovação, aprofunda as conexões entre as pessoas e nos torna uma empresa melhor.
+
+  Sustentabilidade: Nós conduzimos ousadamente para tratar da emergência do clima. Temos o compromisso de trazer todo o poder do Salesforce para acelerar a jornada do mundo rumo à emissão líquida zero.
+`;
 
   // Definir o texto quando o componente for montado, se o leitor de tela estiver ativo
   useEffect(() => {

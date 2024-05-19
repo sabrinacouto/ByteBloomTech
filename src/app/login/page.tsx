@@ -1,14 +1,27 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { loginUser } from '@/services/contaClienteAPI/contaClienteAPI';
 import { ContaCliente } from '@/services/types';
 import Link from 'next/link';
+import { useLeitorDeTela } from "@/contexts/speechContext/_app";
+import LeitorDeTela from "@/components/Leitor/leitor";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { ativo, setarTexto } = useLeitorDeTela();
+
+  const textoParaLeitura = `
+    Faça login em sua conta Salesforce. Email. Senha. Clique em Login. Não tem uma conta? Cadastre-se aqui. ByteBloomTech - Todos os direitos reservados
+  `;
+
+  useEffect(() => {
+    if (ativo) {
+      setarTexto(textoParaLeitura);
+    }
+  }, [ativo, setarTexto]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,7 +91,8 @@ const Login = () => {
           <p className="text-gray-500 mt-7 block text-center">Não tem uma conta? <Link href="/cadastro" className="text-[#2EA7BF] hover:text-gray-500">Cadastre-se aqui</Link></p>
         </div>
       </div>
-      <p className="menu-item text-center text-xs text-gray-500 mt-5">© {new Date().getFullYear()} - <b>ByteBloomTech</b> - Todos os direitos reservados</p>
+     <p className="menu-item text-center text-xs text-gray-500 mt-5">© {new Date().getFullYear()} - <b>ByteBloomTech</b> - Todos os direitos reservados</p>
+     <LeitorDeTela/>
     </section>
   );
 };

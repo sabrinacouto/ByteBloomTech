@@ -1,14 +1,35 @@
 'use client'
 import Image from "next/image";
-
+import { useEffect } from "react";
 import mascoteCustomer from "../../../public/assets/image 40.png";
 import avaliacao from "../../../public/assets/image 41.png";
 import { useImageContext } from "@/contexts/imageContext/_app";
 import ClientesTable from "@/components/ClientsTable/ClientesTable";
+import { useLeitorDeTela } from "@/contexts/speechContext/_app";
+import LeitorDeTela from "@/components/Leitor/leitor";
 
 
 const Customer = () => {
   const { showImages } = useImageContext();
+  const { ativo, setarTexto } = useLeitorDeTela();
+
+  const textoParaLeitura = `
+    Saiba o que nossos clientes têm a dizer. Na jornada pela acessibilidade, cada feedback é um farol que ilumina nosso caminho. Ouvir é o primeiro passo para transformar barreiras em pontes de inclusão. Feedbacks:
+
+    Carla Rodrigues: "A experiência de usuário neste site é excepcionalmente suave e amigável para pessoas com deficiência."
+
+    João Mazzucato: “Estou impressionado com a facilidade de uso do menu de acessibilidade.”
+
+    Gustavo Silva: "A acessibilidade deste site não é apenas um recurso adicional, é parte integrante da sua essência.”
+
+    Larissa Ferreira: "O layout simples e as opções de personalização fazem deste site um verdadeiro oásis de acessibilidade. Parabéns pela atenção aos detalhes!"
+  `;
+
+  useEffect(() => {
+    if (ativo) {
+      setarTexto(textoParaLeitura);
+    }
+  }, [ativo, setarTexto]);
 
   return (
 
@@ -103,6 +124,7 @@ const Customer = () => {
             />}
           </div>
         </div>
+        <LeitorDeTela/>
       </div>
     </section>
 

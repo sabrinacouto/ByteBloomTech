@@ -1,5 +1,6 @@
 'use client'
 import Image from "next/image"
+import { useEffect } from "react"
 import acessibilidadeMascote from "../../../public/assets/acessibilidade.png"
 import iconeAcessibilidade from "../../../public/assets/ÍconeAcessibilidade.png"
 import { FaEye } from "react-icons/fa"; 
@@ -9,10 +10,36 @@ import { MdUpgrade } from "react-icons/md";
 import { MdOutlineInvertColors } from "react-icons/md";
 import { LuImageOff } from "react-icons/lu";
 import { useImageContext } from "@/contexts/imageContext/_app";
+import { useLeitorDeTela } from "@/contexts/speechContext/_app";
+import LeitorDeTela from "@/components/Leitor/leitor";
 
 
 const Acessibilidade = () =>{
   const { showImages } = useImageContext();
+  const { ativo, setarTexto } = useLeitorDeTela();
+
+  const textoParaLeitura = `
+    Salesforce Acessibility. Acessibilidade para todos! A acessibilidade não é um favor que fazemos, é um compromisso que assumimos. Vamos trabalhar juntos para tornar a acessibilidade uma realidade para todos! Conheça as ferramentas do menu acessível da Salesforce:
+
+    Aumento de fonte: Possuímos uma ferramenta que aumenta a fonte dos elementos da página. Com apenas um clique, os textos do site ficam maiores.
+    
+    Libras: A ferramenta de Libras vai habilitar o VLibras, uma aplicação de língua de sinais destinada às pessoas com deficiência auditiva.
+    
+    Audiodescrição: O menu Salesforce Acessibility disponibiliza a opção de ativar a audiodescrição para auxiliar pessoas com deficiência visual.
+    
+    Daltonismo: A cada clique, a tela mudará de cor de acordo com os tipos de daltonismo: protanopia, deuteranopia, acromatia e tritanopia.
+    
+    Desativar Imagens: Ao clicar no botão de desativar imagens, você pode remover as imagens de todo o site!
+    
+    Alterar constraste: Essa funcionalidade altera o contraste do site, deixando-o no modo escuro.
+  `;
+
+  useEffect(() => {
+    if (ativo) {
+      setarTexto(textoParaLeitura);
+    }
+  }, [ativo, setarTexto]);
+
 
 
 
@@ -94,7 +121,7 @@ const Acessibilidade = () =>{
                   </div>
              
 
- 
+<LeitorDeTela/>
   </section>
 
     )
