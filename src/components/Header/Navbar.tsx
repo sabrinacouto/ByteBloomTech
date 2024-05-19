@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
@@ -12,6 +12,41 @@ import { FaUser } from "react-icons/fa";
 const Navbar: React.FC = () => {
   const [isSideMenuOpen, setMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+ 
+
+
+  
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchTerm.trim() !== '') {
+      const keyword = searchTerm.trim().toLowerCase();
+      // Mapeamento de palavras-chave para URLs correspondentes
+      const keywordToPage: {[key: string]: string} = {
+        "produtos": "/produtos",
+        "empresa": "/empresa",
+        "customer": "/customer",
+        "acessibilidade": "/acessibilidade",
+        "desenvolvedores": "/desenvolvedores"
+        // Adicione mais palavras-chave e URLs conforme necessário
+      };
+
+      if (keyword in keywordToPage) {
+        // Redireciona para a página correspondente à palavra-chave
+        window.location.href = keywordToPage[keyword];
+      } else {
+        // Se a palavra-chave não for encontrada, você pode lidar com isso aqui
+        console.log("Palavra-chave não encontrada");
+      }
+
+      setSearchTerm('');
+    }
+  };
+
 
   return (
 
@@ -73,14 +108,24 @@ const Navbar: React.FC = () => {
             </div>
           )}
 
-          <section className="flex items-center gap-4">
+         
+        <section className="flex items-center gap-4">
+          <form onSubmit={handleSearchSubmit} className="flex items-center gap-4">
             <div className="flex items-center justify-center w-full">
-              <button type ="button" id="search"  title = "Barra de pesquisa" onClick={() => setShowSearch(!showSearch)} >
-                <IoSearchSharp className="text-xl rounded-2xl ml-3 mt-1 text-white transition duration-300 hover:bg-blue-300 bg-opacity-50 ransform hover:scale-125" />
+              <button type="button" id="search" title="Barra de pesquisa" onClick={() => setShowSearch(!showSearch)}>
+                <IoSearchSharp className="text-xl rounded-2xl ml-3 mt-1 text-white transition duration-300 hover:bg-blue-300 bg-opacity-50 transform hover:scale-125" />
               </button>
-              {showSearch && <input type="search" placeholder="Encontre aqui" className=" bg-white focus:outline-none rounded text-xs ml-2 md:ml-7 py-2 pr-[2rem] " />}
+              {showSearch && (
+                <input
+                  type="search"
+                  placeholder="Encontre aqui"
+                  className="bg-white focus:outline-none rounded text-xs ml-2 md:ml-7 py-2 pr-[2rem]"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              )}
             </div>
-            {showSearch && <div className=" bg-white mt-2"></div>}
+          </form>
 
             {!showSearch && (
               <>

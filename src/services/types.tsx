@@ -27,6 +27,17 @@
     estado: string;
   }
 
+  export interface Cliente {
+    id: number,
+    nome: string;
+    sobrenome: string;
+    cargo: string;
+    nomeEmpresa: string;
+    cidade: string;
+    estado: string;
+    // Adicione mais campos conforme necessário
+  }
+
 // INTERFACE DA API CONTACLIENTE
   export interface ContaCliente {
     nome: string;

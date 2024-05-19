@@ -1,14 +1,15 @@
 'use client'
 import React, { useState, FormEvent, ChangeEvent} from 'react';
-import { createContaCliente } from '@/services/contaClienteAPI';
+import { createContaCliente } from '@/services/contaClienteAPI/contaClienteAPI';
 import { fetchViaCep } from '@/services/ViaCep/viaCepAPI';
-import { Address } from '@/services/types';
+import { Address, ContaCliente } from '@/services/types';
 import Image from 'next/image';
 import logo from "./../../../public/assets/logoazul.png"
 
 
 
 const Cadastro: React.FC = () => {
+    // Estados para armazenar os dados do endereço, da conta do cliente, erros de entrada, mensagem de sucesso e erro de senha
     const [address, setAddress] = useState<Address>({
         cep: '',
         logradouro: '',
@@ -57,46 +58,52 @@ const Cadastro: React.FC = () => {
     const [passwordError, setPasswordError] = useState('');
 
     const [successMessage, setSuccessMessage] = useState<string>('');
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        try {
-            if (Object.values(inputErrors).some(error => error)) {
-                throw new Error('Por favor, preencha todos os campos obrigatórios.');
-            }
-    
-            console.log('Senha:', contaCliente.senha);
-            console.log('Confirmar Senha:', confirmarSenha);
-    
-            if (contaCliente.senha !== confirmarSenha) {
-                throw new Error('As senhas não correspondem.');
-            }
-    
-            await createContaCliente(contaCliente);
-            setSuccessMessage('Conta criada com sucesso!');
-            setContaCliente({
-                nome: '',
-                sobrenome: '',
-                cargo: '',
-                nomeEmpresa: '',
-                telefone: '',
-                email: '',
-                cep: '',
-                logradouro: '',
-                numero: '',
-                complemento: '',
-                bairro: '',
-                cidade: '',
-                estado: '',
-                senha: '',
-            });
-        } catch (error: any) {
-            setPasswordError(error.message);
+
+    // Função para lidar com o envio do formulário
+const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+        // Verifica se há erros de entrada
+        if (Object.values(inputErrors).some(error => error)) {
+            throw new Error('Por favor, preencha todos os campos obrigatórios.');
         }
-    };
+
+        // Verifica se as senhas coincidem
+        if (contaCliente.senha !== confirmarSenha) {
+            throw new Error('As senhas não correspondem.');
+        }
+
+        // Chama a função para criar a conta do cliente
+        await createContaCliente(contaCliente);
+        setSuccessMessage('Conta criada com sucesso!');
+        // Limpa os dados do formulário após o envio bem-sucedido
+        setContaCliente({
+            nome: '',
+            sobrenome: '',
+            cargo: '',
+            nomeEmpresa: '',
+            telefone: '',
+            email: '',
+            cep: '',
+            logradouro: '',
+            numero: '',
+            complemento: '',
+            bairro: '',
+            cidade: '',
+            estado: '',
+            senha: '',
+        });
+        // Limpa o campo de confirmação de senha
+        setConfirmarSenha('');
+    } catch (error: any) {
+        setPasswordError(error.message);
+    }
+};
     
-    
+    // Função para lidar com a mudança nos campos de entrada
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
+        // Atualiza o estado da conta do cliente e verifica se o campo está vazio
         setContaCliente(prevState => ({
             ...prevState,
             [name]: value
@@ -107,6 +114,7 @@ const Cadastro: React.FC = () => {
         }));
     };
 
+    // Função para lidar com a mudança no campo de CEP
     const handleCEPChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const cep = event.target.value.replace(/\D/g, '');
         if (cep.length !== 8) {
@@ -114,7 +122,9 @@ const Cadastro: React.FC = () => {
         }
 
         try {
+            // Faz uma requisição para buscar informações do CEP
             const data = await fetchViaCep(cep);
+            // Atualiza o estado do endereço e da conta do cliente com os dados do CEP
             setAddress({
                 cep: data.cep,
                 logradouro: data.logradouro,
@@ -135,14 +145,17 @@ const Cadastro: React.FC = () => {
         }
     };
 
+    // Função para lidar com a mudança no campo de confirmação de senha
     const handleConfirmarSenhaChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
+        // Atualiza o estado da confirmação de senha e verifica se as senhas não coincidem
         setConfirmarSenha(value);
         setInputErrors(prevState => ({
             ...prevState,
             confirmarSenha: contaCliente.senha !== value
         }));
     };
+
     return (
 
         <section id ="cadastro" className='flex justify-center my-[5rem]'>
@@ -367,7 +380,6 @@ const Cadastro: React.FC = () => {
                         placeholder='Ex: Andar 4 - Sala 3'
                         className="custom-input rounded-3xl placeholder-gray-500 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-500"
                         title="Numero" 
-                        required
                     />
                      {inputErrors.complemento && <span className="text-red-500 text-xs ml-2">Campo obrigatório.</span>}
                 </div>
