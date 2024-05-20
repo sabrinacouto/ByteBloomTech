@@ -1,6 +1,7 @@
 'use client'
 import { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Mascotes from "@/components/Mascotes/mascotes";
 import mascoteHome from "../../public/assets/mascotehome.png"
 import { useImageContext } from "@/contexts/imageContext/_app";
@@ -30,7 +31,7 @@ export default function Home() {
           <h1 className="gradient text-2xl sm:text-5xl max-w-[600px] w-full">
             Introducing Salesforce Accessibility
           </h1>
-         <a href="#acessibilidade"> <button type="button" naria-label="Clique aqui pra saber mais" className="bg-[#194750] w-[111px] h-[41px] rounded-md text-white mt-10">Saiba mais</button></a>
+         <Link href="/acessibilidade"> <button type="button" naria-label="Clique aqui pra saber mais" className="bg-[#194750] w-[111px] h-[41px] rounded-md text-white mt-10">Saiba mais</button></Link>
           <div>
             <p className="text-lg max-w-[700px] mt-5 mr-2 w-full py-3 hidden sm:block">
               Proporcione uma experiência inclusiva e acessível a todos os usuários!
