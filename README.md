@@ -7,8 +7,8 @@ O projeto tem como intuito a solução de um novo portal acessível para a Sales
 ### Funcionalidades
 
 - Menu acessível com 11 funcionalidades
-- Portal modelado com responsividade
-- 
+- Portal com responsividade
+- Layout intuitivo
 
 # Procedimentos para Rodar a Aplicação
 Primeiro, execute o servidor de desenvolvimento:
