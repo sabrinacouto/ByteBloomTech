@@ -10,7 +10,7 @@ import { useImageContext } from '@/contexts/imageContext/_app';
 import { useDaltonism } from '@/contexts/daltonismContext/_app';
 import { useDarkMode } from '@/contexts/contrastContext/_app';
 import { Languages, MenuTexts } from '@/services/types';
-import BodyModal from './Inicio/BodyModal';
+import BodyModal from './InicioMenu/BodyModal';
 import HelpModalBodyContent from './Ajuda/Help';
 
 

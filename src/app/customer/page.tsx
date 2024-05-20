@@ -42,7 +42,7 @@ const Customer = () => {
   
       <div className="section flex justify-center">
  
-        <div className="card flex flex-col md:flex-row items-center w-[20rem] h-[24rem] sm:w-[60rem] sm:h-auto justify-center bg-white shadow-lg border rounded-lg mt-5 md:mt-0 p-6 md:p-10">
+        <div className="card flex flex-col md:flex-row items-center w-[20rem] h-auto sm:w-[60rem] sm:h-[25rem] justify-center bg-white shadow-lg border rounded-lg mt-5 md:mt-0 p-6 md:p-10">
           <div className="text md:mr-10">
             <h1 className="gradient text-lg sm:text-xl md:text-3xl mb-5 w-[15rem] sm:w-[30rem] md:mb-10">
               Saiba o que nossos clientes têm a dizer
