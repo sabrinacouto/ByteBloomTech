@@ -78,7 +78,7 @@ const Menu: React.FC = () => {
       <div>
         <Image
           src={iconeAcessibilidade}
-          className="h-[3rem] w-[3rem] mx-2 fixed top-[30rem] right-0 flex items-center justify-center cursor-pointer"
+          className="h-[3rem] w-[3rem] mx-2 mt-10 fixed top-[30rem] right-0 flex items-center justify-center cursor-pointer"
           onClick={openModal}
           alt="Icone de Acessibilidade da Salesforce"
         />
