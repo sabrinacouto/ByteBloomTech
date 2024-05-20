@@ -1,6 +1,14 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { ContaCliente, Cliente } from '../types'; // Importando tipos de dados necessários
 
+/**
+ * Função para excluir um cliente.
+ * @param clienteId O ID do cliente a ser excluído ou atualizada.
+ * @param newData Um objeto contendo os novos dados do cliente a serem atualizados.
+ * @returns Uma Promise que resolve quando o cliente é excluído ou atualizado com sucesso.
+ *          Se houver um erro durante a exclusão ou atualização, a Promise será rejeitada com detalhes do erro.
+ */
+
 // Configurando a instância do axios para se comunicar com o servidor
 const api = axios.create({
   baseURL: 'http://localhost:8080/', // URL base da API
@@ -8,6 +16,8 @@ const api = axios.create({
     'Content-Type': 'application/json', // Configurando o cabeçalho para JSON
   },
 });
+
+
 
 // Função para criar uma nova conta cliente
 export const createContaCliente = async (contaCliente: ContaCliente) => {
@@ -58,12 +68,68 @@ export const loginUser = async (email: string, senha: string): Promise<ContaClie
 export const getAllClientes = async (): Promise<Cliente[]> => {
   try {
     // Enviando uma requisição GET para o endpoint '/contaCliente' para buscar todos os clientes
-    const response: AxiosResponse<{ clientes: Cliente[] }> = await axios.get('http://localhost:8080/contaCliente');
+    const response = await axios.get('http://localhost:8080/contaCliente');
     return response.data.clientes; // Retornando todos os clientes encontrados na resposta
   } catch (error) {
     // Tratando erros da requisição
     console.error('Erro ao buscar clientes:', error);
-    throw new Error('Erro ao buscar clientes');
+
+    if (axios.isAxiosError(error)) {
+      // Se for um erro do Axios, retornar uma resposta com o status code e a mensagem de erro
+      const axiosError = error as AxiosError<any>; // Define o tipo de dados como 'any' ou outro tipo mais específico, se aplicável
+      const status = axiosError.response?.status || 500;
+      const message = axiosError.response?.data?.message || 'Erro interno do servidor';
+      throw { status, message };
+    } else {
+      // Se for outro tipo de erro, retornar uma resposta com status 500 e a mensagem de erro genérica
+      throw { status: 500, message: 'Erro interno do servidor' };
+    }
   }
 };
 
+//Função para excluir um cliente
+export const deleteCliente = async (clienteId: number): Promise<void> => {
+  try {
+    // Enviando uma requisição DELETE para o endpoint '/contaCliente/:id' para excluir o cliente com o ID fornecido
+    await axios.delete(`http://localhost:8080/contaCliente/${clienteId}`);
+    
+    // Se a exclusão for bem-sucedida, não é necessário retornar nada
+  } catch (error) {
+    // Tratando erros da requisição
+    console.error('Erro ao excluir cliente:', error);
+
+    if (axios.isAxiosError(error)) {
+      // Se for um erro do Axios, retornar uma resposta com o status code e a mensagem de erro
+      const axiosError = error as AxiosError<any>;
+      const status = axiosError.response?.status || 500;
+      const message = axiosError.response?.data?.message || 'Erro interno do servidor';
+      throw { status, message };
+    } else {
+      // Se for outro tipo de erro, retornar uma resposta com status 500 e a mensagem de erro genérica
+      throw { status: 500, message: 'Erro interno do servidor' };
+    }
+  }
+};
+
+export const updateCliente = async (clienteId: number, newData: any): Promise<void> => {
+  try {
+    // Enviando uma requisição PUT para o endpoint '/contaCliente/:id' para atualizar o cliente com o ID fornecido
+    await axios.put(`http://localhost:8080/contaCliente/${clienteId}`, newData);
+    
+    // Se a atualização for bem-sucedida, não é necessário retornar nada
+  } catch (error) {
+    // Tratando erros da requisição
+    console.error('Erro ao atualizar cliente:', error);
+
+    if (axios.isAxiosError(error)) {
+      // Se for um erro do Axios, retornar uma resposta com o status code e a mensagem de erro
+      const axiosError = error as AxiosError<any>;
+      const status = axiosError.response?.status || 500;
+      const message = axiosError.response?.data?.message || 'Erro interno do servidor';
+      throw { status, message };
+    } else {
+      // Se for outro tipo de erro, retornar uma resposta com status 500 e a mensagem de erro genérica
+      throw { status: 500, message: 'Erro interno do servidor' };
+    }
+  }
+};
