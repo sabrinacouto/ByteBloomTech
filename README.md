@@ -1,10 +1,10 @@
 # SalesForce Acessibility 
 
-# Sobre o projeto
+### Sobre o projeto
 
 O projeto tem como intuito a solução de um novo portal acessível para a SalesForce
 
-# Funcionalidades
+### Funcionalidades
 
 - Menu acessível com 11 funcionalidades
 - Portal modelado com responsividade
@@ -29,7 +29,7 @@ Você pode começar a editar a página modificando `app/page.tsx`. A página se 
 
 Este projeto utiliza [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) para otimizar e carregar automaticamente o Inter, uma fonte personalizada do Google.
 
-# Documentação Next.JS
+### Documentação Next.JS
 [Next.js Documentation](https://nextjs.org/docs) - aprenda sobre os recursos e a API do Next.js.
 [Learn Next.js](https://nextjs.org/learn) - um tutorial interativo de Next.js.
 
@@ -39,7 +39,7 @@ Este projeto utiliza [`next/font`](https://nextjs.org/docs/basic-features/font-o
 - REACT
 - NEXT.JS
 
-# Técnicas
+### Técnicas
 - Next.JS
 
 ## ByteBloomTech - Integrantes
