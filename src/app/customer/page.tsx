@@ -38,6 +38,7 @@ const Customer = () => {
       
    
       <div className='flex justify-center mb-[5rem]'>
+        <ClientesTable />
       </div>
 
       <div className="section flex justify-center">
