@@ -11,6 +11,7 @@ import { LeitorDeTelaProvider } from '@/contexts/speechContext/_app';
 import Footer from '@/components/Footer/Footer';
 import Navbar from '@/components/Header/Navbar';
 import Libras from '@/components/VLibras/VLibras';
+import Cookies from '@/components/Cookies/Cookies';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
         <DaltonismProvider>
         <TextSizeProvider>
         {children} 
+        <Cookies />
 
         <Footer/>
   

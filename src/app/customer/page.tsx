@@ -35,10 +35,11 @@ const Customer = () => {
 
  
     <section id="customer" className="py-10 md:py-20">
-
+      
+   
       <div className='flex justify-center mb-[5rem]'>
       </div>
-  
+
       <div className="section flex justify-center">
  
         <div className="card flex flex-col md:flex-row items-center w-[20rem] h-auto sm:w-[60rem] sm:h-[25rem] justify-center bg-white shadow-lg border rounded-lg mt-5 md:mt-0 p-6 md:p-10">
