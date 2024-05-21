@@ -2,7 +2,6 @@
 import Image from "next/image"
 import { useEffect } from "react"
 import acessibilidadeMascote from "../../../public/assets/acessibilidade.png"
-import iconeAcessibilidade from "../../../public/assets/ÍconeAcessibilidade.png"
 import { FaEye } from "react-icons/fa"; 
 import { FaHands } from "react-icons/fa6";
 import { AiTwotoneSound } from "react-icons/ai";
@@ -15,9 +14,11 @@ import LeitorDeTela from "@/components/Leitor/leitor";
 
 
 const Acessibilidade = () =>{
-  const { showImages } = useImageContext();
-  const { ativo, setarTexto } = useLeitorDeTela();
+  const { showImages } = useImageContext(); //exibe e desativa as imagens
+  const { ativo, setarTexto } = useLeitorDeTela(); //ativa a função de ler o texto
 
+  
+  //Lê o texto da página ao clicar no leitor de tela
   const textoParaLeitura = `
     Salesforce Acessibility. Acessibilidade para todos! A acessibilidade não é um favor que fazemos, é um compromisso que assumimos. Vamos trabalhar juntos para tornar a acessibilidade uma realidade para todos! Conheça as ferramentas do menu acessível da Salesforce:
 
