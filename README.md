@@ -8,7 +8,9 @@
 O projeto tem como intuito principal remodular o Portal da Salesforce, trazendo também a inclusão de novas funcionalidades para abrangir pessoas com deficiência.
 
 Proposta: Inclusão do Menu Acessível.
+
 Compromisso: Desenvolver uma interface intuitiva e inclusiva.
+
 Objetivo: Promover equidade e garantir qualidade de acesso para todos os usuários
 
 ### Funcionalidades
