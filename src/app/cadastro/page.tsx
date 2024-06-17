@@ -5,17 +5,24 @@ import logo from "./../../../public/assets/logoazul.png"
 import { useLeitorDeTela } from "@/contexts/speechContext/_app";
 import SignUp from '@/components/FormSignUp/SignUp';
 import LeitorDeTela from "@/components/Leitor/leitor";
+import { useImageContext } from '@/contexts/imageContext/_app';
 
 const Cadastro: React.FC = () => {
+    const { showImages } = useImageContext();
     const { ativo, setarTexto } = useLeitorDeTela();
 
     const textoParaLeitura = `
-    Inscreva-se para começar sua avaliação gratuita.
-    Preencha o formulário e em breve entraremos em contato sobre seu teste gratuito. Nome. Digite o seu nome. Sobrenome.
-    Digite seu sobrenome. Email. Exemplo@email.com. Cargo. Digite seu cargo. Empresa. Digite o nome da sua empresa. Telefone. CEP.
-    Estado. Cidade. Bairro. Digite o bairro da sua empresa. Logradouro. Número. Complemento. Ex: Andar 4 - Sala 3. Senha. Digite sua senha.
-    Confirmar senha. Digite novamente a sua senha. Li e concordo com os termos de uso. Cadastre-se.
-    `;
+    Inscreva-se na Salesforce e transforme sua empresa:
+    Gestão de Relacionamento com o Cliente (CRM):Centralize todas as informações de seus clientes em uma única plataforma e ofereça um atendimento mais personalizado e eficiente.
+
+    Automação de Marketing:Crie campanhas de marketing automatizadas e acompanhe os resultados em tempo real, ajustando suas estratégias para obter o melhor desempenho.
+
+    Análise de Dados:Utilize ferramentas avançadas de análise para tomar decisões baseadas em dados concretos, melhorando a eficiência e os resultados de sua empresa.
+        Preencha o formulário e em breve entraremos em contato sobre seu teste gratuito. Nome. Digite o seu nome. Sobrenome.
+        Digite seu sobrenome. Email. Exemplo@email.com. Cargo. Digite seu cargo. Empresa. Digite o nome da sua empresa. Telefone. CEP.
+        Estado. Cidade. Bairro. Digite o bairro da sua empresa. Logradouro. Número. Complemento. Ex: Andar 4 - Sala 3. Senha. Digite sua senha.
+        Confirmar senha. Digite novamente a sua senha. Li e concordo com os termos de uso. Cadastre-se.
+        `;
 
     useEffect(() => {
         if (ativo) {
@@ -30,14 +37,14 @@ const Cadastro: React.FC = () => {
                     <div className="flex flex-col items-start justify-start">
                         <div className="flex flex-row items-start justify-start py-0 box-border">
                             <div className="w-[9.375rem] flex flex-row items-start justify-start relative mb-9">
-                                <Image
+                            {showImages &&<Image
                                     className="h-[5rem] w-[7rem]"
                                     alt="Logo da Salesforce"
                                     src={logo}
-                                />
+                                />}
                             </div>
                         </div>
-                        <div className="text-5xl text-black">
+                        <div className="text-2xl text-black">
                             <h2 className="m-0 gradient font-bold w-auto md:w-[30rem]">
                                 Inscreva-se na Salesforce e transforme sua empresa:
                             </h2>
