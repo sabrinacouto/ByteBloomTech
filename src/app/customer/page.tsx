@@ -36,10 +36,7 @@ const Customer = () => {
  
     <section id="customer" className="py-10 md:py-20">
       
-   
-      <div className='flex justify-center mb-[5rem]'>
-        <ClientesTable />
-      </div>
+  
 
       <div className="section flex justify-center">
  

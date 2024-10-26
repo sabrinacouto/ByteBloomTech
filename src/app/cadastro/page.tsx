@@ -33,10 +33,10 @@ const Cadastro: React.FC = () => {
     return (
         <section id ="cadastro" className='flex justify-center my-[5rem]'>
             <div className="w-full flex flex-col md:flex-row items-center justify-center font-montserrat  mt-10 gap-10 p-4">
-                <div className="w-auto md:w-[38rem] flex flex-col items-start justify-start">
+                <div className="flex flex-col items-start justify-start">
                     <div className="flex flex-col items-start justify-start">
                         <div className="flex flex-row items-start justify-start py-0 box-border">
-                            <div className="w-[9.375rem] flex flex-row items-start justify-start relative mb-9">
+                            <div className="w-[9.375rem] flex flex-row items-start justify-start mb-9">
                             {showImages &&<Image
                                     className="h-[5rem] w-[7rem]"
                                     alt="Logo da Salesforce"
@@ -45,11 +45,11 @@ const Cadastro: React.FC = () => {
                             </div>
                         </div>
                         <div className="text-2xl text-black">
-                            <h2 className="m-0 gradient font-bold w-auto md:w-[30rem]">
+                            <h2 className="m-0 gradient font-bold">
                                 Inscreva-se na Salesforce e transforme sua empresa:
                             </h2>
                         </div>
-                        <div className="flex flex-col gap-5 mt-7 pb-[6rem] w-[35rem] ">
+                        <div className=" max-w-[600px] w-full flex flex-col gap-5 mt-7 pb-[6rem]">
                             <div>
                                 <p>
                                     <span className="font-bold text-[#66c4e8] mr-1">
